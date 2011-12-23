@@ -1,0 +1,8 @@
+<%= form_for @question, :url => admin_question_path( @question ) do |f| %>
+	<%= f.label :study_text %><br/>
+	<%= f.text_area :study_text, :rows => 4, :cols => 50 %><br/>
+	<%= f.label :question_text %><br/>
+	<%= f.text_area :question_text, :rows => 4, :cols => 50 %><br/>
+	
+	<%= f.submit :value => "Update" %>		
+<% end %>

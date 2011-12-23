@@ -1,0 +1,2 @@
+Study Text: <%= @question.study_text %><br/>
+Question Text: <%= @question.question_text %><br/> 

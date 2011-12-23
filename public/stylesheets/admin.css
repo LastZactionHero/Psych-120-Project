@@ -1,0 +1,35 @@
+.clear {
+  clear: both;
+}
+
+#header-bar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 44px;
+  border: 1px solid #999999;
+  background-color: #6699FF;
+  
+  padding-left: 16px;
+}
+
+.header-text {
+  position: relative;
+  top: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0px 0px 4px 0px;
+}
+
+.breadcrumbs {
+  font-size: 10px;
+  margin: 0px;
+}
+
+#content {
+  position: relative;
+  top: 30px;
+  
+  margin: 24px 16px 0px 16px;
+}
