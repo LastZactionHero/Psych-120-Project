@@ -1,0 +1,9 @@
+Add a new keyword:
+
+<%= form_for( Keyword.new, :url => keywords_create_admin_question_path ) do |f| %>
+	<li><%= f.label "Keyword" %> <%= f.text_field :original %></li>
+	
+	<li><%= f.label "Synonyms" %> <%= f.text_area :synonyms %></li>
+	
+	<%= f.submit "Add Keyword" %>
+<% end %>

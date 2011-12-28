@@ -6,3 +6,17 @@
 	
 	<%= f.submit :value => "Update" %>		
 <% end %>
+
+<hr>
+Keywords <%= link_to "(add new)", keywords_new_admin_question_path, :class => "modify" %>
+
+<ul id="edit-keyword-list">	
+	<% @question.keywords.each do |keyword| %>
+		<li>
+			<p class="keyword"><%= keyword.original %></p>
+			<p><%= keyword.synonyms %></p>
+			<%= link_to "(edit synonyms)", edit_keyword_admin_question_path( :keyword => keyword ), :class => "modify" %>  
+			<%= link_to "(delete)", destroy_keyword_admin_question_path( :keyword => keyword ), :method => :delete, :confirm => "Are you sure you would like to remove this keyword?", :class => "modify" %>			
+		</li>
+	<% end %>
+</ul>

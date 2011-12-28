@@ -1,7 +1,14 @@
-This test contains <%= Question.count %> questions<br/>
+This test contains <%= pluralize(  Question.count, "question" ) %><br/>
 <%= link_to "Add New", new_admin_question_path %>
 <hr>
 
+<ol id="question-list">
 <% Question.all.each do |question| %>
-	<%= question.study_text %> <%= link_to "Edit", edit_admin_question_path( question ) %> <%= link_to "Delete", admin_question_path( question) , :method => "DELETE", :confirm => "Are you sure you would like to delete this question?" %><br/><br/>
+	<li>
+		<p><%= question.study_text %> (<%= question.keywords.map{ |keyword| keyword.original }.join( ", " ) %>) </p>
+		<p><%= question.question_text %></p>
+		<p><%= link_to "Edit", edit_admin_question_path( question ) %> 
+		<%= link_to "Delete", admin_question_path( question) , :method => "DELETE", :confirm => "Are you sure you would like to delete this question?" %></p>
+	</li>
 <% end %>
+</ol>

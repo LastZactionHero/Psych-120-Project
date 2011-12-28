@@ -4,7 +4,7 @@
 
 <h1>Test Questions</h1>
 <hr>
-This test contains <%= Question.count %> questions<br/>
+This test contains <%= pluralize( Question.count, "question" ) %><br/>
 <%= link_to "Edit", admin_questions_path %>
 		
 <br/><br/><br/>

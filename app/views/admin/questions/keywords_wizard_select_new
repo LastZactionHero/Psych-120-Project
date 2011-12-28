@@ -1,2 +1,58 @@
 Study Text: <%= @question.study_text %><br/>
-Question Text: <%= @question.question_text %><br/> 
+Question Text: <%= @question.question_text %>
+
+<hr>
+
+Keywords required for a correct answer:
+<ul id="keyword-list">	
+</ul>
+
+<input type="text" id="input-add"></input> <a href="#" onclick="javascript:add()">Add</a><br/><br/>
+
+<%= form_tag( keywords_wizard_update_new_admin_question_path ) do %>
+	<%= hidden_field_tag "form-keywords" %>
+	<hr>
+	<%= submit_tag( "Select Synonyms" ) %>
+<% end %>
+
+<script type="text/javascript">
+	
+	var keywords = [ <% @question.suggested_keywords.each do |keyword| %> "<%= keyword %>", <% end %> ];
+	var keywordIdx = 0;
+	
+	for( var i = 0; i < keywords.length; i++ ) {
+		var id = "keyword-" + keywordIdx;		
+		$( "#keyword-list" ).append( "<li id='" + id + "'>" + keywords[i] + " <a class='modify' href='#' onclick='javascript:remove(" + keywordIdx + ")'>(remove)</a></li>" );
+		keywordIdx++;
+		
+		updateForm();
+	}	
+	
+	
+	function remove( keyword ) {
+		var id = "keyword-" + keyword;				
+		$( "#" + id ).remove();
+		
+		keywords[keyword] = "";
+		updateForm();
+	}
+	
+	function add() {
+		keyword = $( "#input-add" ).val();
+		if( keyword.length > 0 ) {
+			$( "#input-add" ).val( "" );						
+			
+			var id = "keyword-" + keywordIdx;		
+			$( "#keyword-list" ).append( "<li id='" + id + "'>" + keyword + " <a href='#' onclick='javascript:remove(" + keywordIdx + ")'>(remove)</a></li>" );
+			
+			keywords.push( keyword );
+			keywordIdx++;			
+		}		
+		updateForm();
+	}
+	
+	function updateForm() {
+		$( "#form-keywords" ).val( keywords );
+	}
+	
+</script>

@@ -1,0 +1,27 @@
+Study Text: <%= @question.study_text %><br/>
+Question Text: <%= @question.question_text %><br/><br/>
+
+<hr>
+Select synonyms for each keyword
+
+<%= form_for( @question, :url => keywords_wizard_synonyms_select_update_new_admin_question_path ) do |f| %>
+	<ul id="keyword-list">
+		<% @question.keywords.each do |keyword| %>
+			
+			<li>				
+				<p><%= keyword.original %></p>
+				<% synonyms = keyword.synonyms.present? ? keyword.synonyms : keyword.suggested_synonyms.join( ", " ) %> 
+				<%= text_area_tag "synonyms-#{keyword.id}", synonyms, :class => "text-field-synonym" %>															
+			</li>
+		<% end %>	
+	</ul>		
+<%= f.submit "Finish" %>
+<% end %>
+
+<script type="text/javascript">
+
+	$( document ).ready( function() {
+		$( "textarea" ).elastic();
+	});
+
+</script>

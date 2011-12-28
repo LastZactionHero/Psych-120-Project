@@ -8,6 +8,16 @@ Psychtest::Application.routes.draw do
       
       member do
         get 'keywords_wizard_select_new'
+        post 'keywords_wizard_update_new'
+        get 'keywords_wizard_synonyms_select_new'
+        put 'keywords_wizard_synonyms_select_update_new'
+        
+        get 'keywords_new'
+        post 'keywords_create'
+        
+        get 'edit_keyword'
+        put 'update_keyword'
+        delete 'destroy_keyword'        
       end
       
     end

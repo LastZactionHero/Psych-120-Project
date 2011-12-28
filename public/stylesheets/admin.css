@@ -2,6 +2,10 @@
   clear: both;
 }
 
+hr {
+  margin: 24px 0px 12px 0px;
+}
+
 #header-bar {
   position: absolute;
   top: 0px;
@@ -32,4 +36,37 @@
   top: 30px;
   
   margin: 24px 16px 0px 16px;
+}
+
+
+
+
+ol#question-list li {
+  margin: 20px;
+}
+
+ol#question-list li p {
+  margin: 4px 0px 4px 0px;
+}
+
+a.modify {
+  font-size: 0.75em;
+  color: #999999;
+}
+
+textarea {
+  font-family: "verdana";
+  width: 300px;
+}
+
+ul#edit-keyword-list li{
+  margin-bottom: 24px;
+}
+
+ul#edit-keyword-list li p {
+  margin: 0px 0px 0px 0px;
+}
+
+ul#edit-keyword-list li p.keyword {
+  font-weight: bold;
 }

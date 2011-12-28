@@ -1,0 +1,8 @@
+Select synonyms for keyword: <%= @keyword.original %>
+<br/>
+
+<%= form_for( @question, :url => update_keyword_admin_question_path( :keyword => @keyword ) ) do |f| %>
+	<% synonyms = @keyword.synonyms.present? ? @keyword.synonyms : @keyword.suggested_synonyms.join( ", " ) %> 
+	<%= text_area_tag "synonyms", synonyms %>																
+	<%= f.submit "Finish" %>
+<% end %>

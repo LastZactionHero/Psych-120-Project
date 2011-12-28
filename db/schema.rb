@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111221202236) do
+ActiveRecord::Schema.define(:version => 20111228171349) do
+
+  create_table "keywords", :force => true do |t|
+    t.string   "original"
+    t.string   "synonyms"
+    t.integer  "question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "questions", :force => true do |t|
     t.string   "study_text"
