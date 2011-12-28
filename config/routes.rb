@@ -20,7 +20,7 @@ Psychtest::Application.routes.draw do
       end      
     end
     
-    resources :study_users, :only => [ :index, :new, :create, :destroy ] do
+    resources :study_users, :only => [ :index, :new, :create, :destroy, :edit, :update ] do
       
     end
     

@@ -16,4 +16,9 @@ class TestMeta < ActiveRecord::Base
     meta.save    
   end
     
+  
+  def self.max_weeks
+    15
+  end
+  
 end

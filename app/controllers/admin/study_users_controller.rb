@@ -1,5 +1,5 @@
 class Admin::StudyUsersController < ApplicationController
-  before_filter :find_user, :only => [:destroy]
+  before_filter :find_user, :only => [:destroy, :edit, :update]
     
   layout 'admin'
   
@@ -32,6 +32,20 @@ class Admin::StudyUsersController < ApplicationController
     redirect_to admin_study_users_path
   end
   
+  def edit
+  end
+  
+  def update      
+    params["condition"].keys.each do |week_key|
+      test = Test.where( :study_user_id => @user.id, :week => week_key.to_i ).first
+      unless ( test.condition == params["condition"][week_key] )
+        test.condition = params["condition"][week_key]
+        test.save
+      end
+    end
+    
+    redirect_to edit_admin_study_user_path( @user )
+  end
   
   protected
   

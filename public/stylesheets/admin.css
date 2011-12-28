@@ -74,3 +74,11 @@ ul#edit-keyword-list li p {
 ul#edit-keyword-list li p.keyword {
   font-weight: bold;
 }
+
+ul#user-week-list li {
+  margin: 0px 0px 16px 0px;
+}
+
+ul#user-week-list li p {
+  margin: 0px 0px 4px 0px;
+}

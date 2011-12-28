@@ -1,0 +1,31 @@
+<p>Id: <%= @user.id %></p>
+<p>Email hash: <%= @user.email_hash %></p>
+
+<hr>
+
+
+<%= form_for( @user, :url => admin_study_user_path( @user ) ) do |f| %>
+	<ul id="user-week-list">
+		<% @user.tests.each do |test| %>
+			<li>
+				<p>Week: <%= test.week %></p>
+				<p>Complete: <%= test.complete %></p>
+				
+				<p>Condition:
+				
+					<% if test.complete %>
+						<%= test.condition %>
+					<% else %>
+						<select name="condition[<%= test.week %>]">
+			  				<option value="study" <% if test.condition == "study" %>selected="selected"<% end %> >Study</option>
+			  				<option value="study_recall" <% if test.condition == "study_recall" %>selected="selected"<% end %> >Study/Recall</option>
+			  				<option value="none" <% if test.condition == "none" %>selected="selected"<% end %> >None</option>
+						</select>
+					<% end %>
+				</p>
+			</li>
+		<% end %>
+	</ul>
+	
+	<%= f.submit "Update" %>
+<% end %>
