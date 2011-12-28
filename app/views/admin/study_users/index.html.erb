@@ -6,6 +6,6 @@
 
 <ul>
 	<% StudyUser.all.each do |user| %>
-		<li><%= user.id %> - <%= user.email_hash %> <%= link_to "(edit)", edit_admin_study_user_path( user ), :class => "modify" %> <%= link_to "(delete)", admin_study_user_path( user ), :method => :delete, :class => "modify" %></li>
+		<li><%= user.id %> - <%= user.email_hash %> <%= link_to "(edit)", edit_admin_study_user_path( user ), :class => "modify" %> <%= link_to "(delete)", admin_study_user_path( user ), :method => :delete, :class => "modify", :confirm => "Are you sure you would like to delete this user?" %></li>
 	<% end %>
 </ul>

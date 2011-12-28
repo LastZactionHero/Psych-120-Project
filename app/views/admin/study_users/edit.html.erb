@@ -6,7 +6,7 @@
 
 <%= form_for( @user, :url => admin_study_user_path( @user ) ) do |f| %>
 	<ul id="user-week-list">
-		<% @user.tests.each do |test| %>
+		<% @user.tests.find(:all, :order => "week ASC").each do |test| %>
 			<li>
 				<p>Week: <%= test.week %></p>
 				<p>Complete: <%= test.complete %></p>
