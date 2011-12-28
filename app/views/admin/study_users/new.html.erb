@@ -1,0 +1,6 @@
+<%= form_for( @user, :url => admin_study_users_path ) do |f| %>
+	<%= f.label "Email Address" %>
+	<%= text_field_tag :email_address %>
+	<% if @user.errors[:email_hash].any? %><br/>Email address already used<% end %>
+	<br/><%= f.submit "Create" %>
+<% end %> 

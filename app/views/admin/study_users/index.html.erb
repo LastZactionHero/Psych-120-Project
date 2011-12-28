@@ -1,0 +1,11 @@
+<p>These user records store test information. They are disassociated from user information and are identified by a hashed email address.</p>
+<p><%= pluralize( StudyUser.count, "user" ) %> participating in this study</p>
+<p><%= link_to "Add New", new_admin_study_user_path %></p>
+
+<hr>
+
+<ul>
+	<% StudyUser.all.each do |user| %>
+		<li><%= user.id %> - <%= user.email_hash %> <%= link_to "(delete)", admin_study_user_path( user ), :method => :delete %></li>
+	<% end %>
+</ul>

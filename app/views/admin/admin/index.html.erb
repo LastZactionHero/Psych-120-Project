@@ -1,14 +1,21 @@
 <h1>Test State</h1>
 <hr>
+<p>Test Week: <%= TestMeta.week %></p> 
+<p><%= link_to "(advance to next week)", advance_to_next_week_admin_test_meta_path, :method => :post %> | <%= link_to "(revert to last week)", revert_to_last_week_admin_test_meta_path, :method => :post %></p>
 <br/><br/><br/>
 
 <h1>Test Questions</h1>
 <hr>
-This test contains <%= pluralize( Question.count, "question" ) %><br/>
-<%= link_to "Edit", admin_questions_path %>
+<p>This test contains <%= pluralize( Question.count, "question" ) %></p>
+<p><%= link_to "Edit", admin_questions_path %></p>
 		
 <br/><br/><br/>
 
-<h1>Users</h1>
+<h1>Study Users</h1>
 <hr>
+<p>These user records store test information. They are disassociated from user information and are identified by a hashed email address.</p>
+<p><%= pluralize( StudyUser.count, "user" ) %> participating in this study</p>
+<p><%= link_to "Edit", admin_study_users_path %></p>
+
+
 <br/><br/><br/>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111228202126) do
+ActiveRecord::Schema.define(:version => 20111228213219) do
 
   create_table "keywords", :force => true do |t|
     t.string   "original"
@@ -23,6 +23,18 @@ ActiveRecord::Schema.define(:version => 20111228202126) do
   create_table "questions", :force => true do |t|
     t.string   "study_text"
     t.string   "question_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "study_users", :force => true do |t|
+    t.string   "email_hash"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "test_meta", :force => true do |t|
+    t.integer  "week"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
