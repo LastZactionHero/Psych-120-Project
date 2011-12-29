@@ -33,6 +33,18 @@ Psychtest::Application.routes.draw do
     
   end
   
+  resources :test, :only => [] do
+    collection do
+      get 'home'
+      post 'sign_in'
+      get 'welcome'
+      
+      get 'step'
+      post 'complete_step'
+    end
+  end
+  
+  root :to => "test#home"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

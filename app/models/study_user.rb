@@ -14,6 +14,11 @@ class StudyUser < ActiveRecord::Base
     super
   end
   
+  def self.find_user_by_email( email )
+    email_hash = Digest::SHA1.hexdigest email
+    user = StudyUser.where( :email_hash => email_hash ).first  
+  end
+  
   protected
   
   def generate_counterbalance_conditions

@@ -1,0 +1,19 @@
+<% if @welcome_state == :already_finished %>
+  You have already finished this week's test.
+  
+<% elsif @welcome_state == :new_test %>
+  
+  <% if @condition == :none %>
+  	You have no test scheduled for this week. 
+  	
+  <% elsif @condition == :study %>
+    <p>This week you will study a list of terms. You may take as much time as you need.</p>
+    <p><%= link_to "Start", step_test_index_path %></p>
+    
+  <% else %>
+    <p>This week you will study a list of terms and be tested over their definitions.</p>
+    <p><%= link_to "Start", step_test_index_path %></p>
+    
+  <% end %>
+        
+<% end %>
