@@ -76,9 +76,30 @@ ul#edit-keyword-list li p.keyword {
 }
 
 ul#user-week-list li {
-  margin: 0px 0px 16px 0px;
+  margin: 0px 0px 52px 0px;
 }
 
 ul#user-week-list li p {
   margin: 0px 0px 4px 0px;
+}
+
+table {
+  border: 1px solid #333333;
+}
+
+td.cell-counterbalance {
+  font-size: 8px;
+  text-align: center;
+}
+
+.counterbalance-none {
+  background-color: #7777CC;
+}
+
+.counterbalance-study {
+  background-color: #CC7777;
+}
+
+.counterbalance-study_recall {
+  background-color: #77CC77;
 }

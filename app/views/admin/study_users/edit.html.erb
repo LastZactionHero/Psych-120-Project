@@ -3,6 +3,18 @@
 
 <hr>
 
+<table>
+	<tr>
+		<% @user.tests.find(:all, :order => "week ASC").each do |test| %>
+			<td width="60" class="cell-counterbalance"><%= test.week %></td>
+		<% end %>
+	</tr>	
+	<tr>
+		<% @user.tests.find(:all, :order => "week ASC").each do |test| %>
+			<td width="60" class="cell-counterbalance counterbalance-<%= test.condition %>"><%= test.condition %></td>
+		<% end %>
+	</tr>
+</table>
 
 <%= form_for( @user, :url => admin_study_user_path( @user ) ) do |f| %>
 	<ul id="user-week-list">
@@ -13,7 +25,7 @@
 				
 				<p>Condition:
 				
-					<% if test.complete %>
+					<% if test.week < TestMeta.week %>
 						<%= test.condition %>
 					<% else %>
 						<select name="condition[<%= test.week %>]">
