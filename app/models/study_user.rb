@@ -11,6 +11,11 @@ class StudyUser < ActiveRecord::Base
     self.tests.each do |test|
       test.delete
     end
+    
+    Response.where( :study_user_id => self.id ).each do |response|
+      response.delete    
+    end
+    
     super
   end
   
