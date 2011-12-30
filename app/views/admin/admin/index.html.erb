@@ -1,7 +1,11 @@
 <h1>Test State</h1>
 <hr>
 <p>Test Week: <%= TestMeta.week %></p> 
-<p><%= link_to "(advance to next week)", advance_to_next_week_admin_test_meta_path, :method => :post %> | <%= link_to "(revert to last week)", revert_to_last_week_admin_test_meta_path, :method => :post %></p>
+<p>
+	<% if TestMeta.week < TestMeta.max_weeks - 1 %><%= link_to "(advance to next week)", advance_to_next_week_admin_test_meta_path, :method => :post %><% end %>
+	<% if TestMeta.week > 0 %><%= link_to "(revert to last week)", revert_to_last_week_admin_test_meta_path, :method => :post %><% end %>
+</p>
+	
 <br/><br/><br/>
 
 <h1>Test Questions</h1>
