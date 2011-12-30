@@ -6,7 +6,7 @@
 <table>
 	<tr>
 		<% @user.tests.find(:all, :order => "week ASC").each do |test| %>
-			<td width="60" class="cell-counterbalance"><%= test.week %></td>
+			<td width="60" class="cell-counterbalance <% if test.week == TestMeta.week %> this-week<% end %>"><%= test.week %></td>
 		<% end %>
 	</tr>	
 	<tr>
@@ -14,6 +14,11 @@
 			<td width="60" class="cell-counterbalance counterbalance-<%= test.condition %>"><%= test.condition %></td>
 		<% end %>
 	</tr>
+	<tr>
+		<% @user.tests.find(:all, :order => "week ASC").each do |test| %>
+			<td width="60" class="completed"><% if test.week <= TestMeta.week %><%= test.complete ? "Complete" : "-"%><% end %></td>
+		<% end %>
+	</tr>	
 </table>
 
 <%= form_for( @user, :url => admin_study_user_path( @user ) ) do |f| %>

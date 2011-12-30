@@ -1,13 +1,16 @@
 <div id="step-box">
 
-	<%= form_tag( complete_step_test_index_path ) do %>
+	<%= form_tag( complete_step_test_index_path, {:onSubmit => 'setTimes()'} ) do %>
 	
 		<% if @state == :study %>
 			<p><%= @question.study_text %></p>
-			<p class="next-link"><%= submit_tag "Next" %></p>
+			<%= hidden_field_tag :study_time, "0" %>
+			<p class="next-link"><%= submit_tag( "Next" ) %></p>
 		<% elsif @state == :recall %>
 			<p><%= @question.question_text %></p>
 			<%= text_area_tag "response" %><br/>
+			<%= hidden_field_tag :total_reaction_time, "0" %>
+			<%= hidden_field_tag :recall_reaction_time, "0" %>
 			<p class="next-link"><%= submit_tag "Next" %></p>
 		<% else %>
 		  <p>You have completed the study for this week. Thank you!</p>
@@ -17,3 +20,40 @@
 	<% end %>
 
 </div>
+
+<script type="text/javascript">
+	
+	startTime = 0;
+	typingStartTime = null;
+	
+	$(document).ready( function() {
+		var date = new Date();
+		startTime = date.getTime();
+		
+		$( "#response" ).keydown( function() {
+			if( typingStartTime == null ) {
+				var date = new Date();
+				typingStartTime = date.getTime();
+			}
+		});
+	} );
+	
+	function setTimes() {
+		var date = new Date();
+		var endTime = date.getTime();
+		
+		var studyTime = endTime - startTime;
+		$( "#study_time" ).val( studyTime );
+		
+		var totalReactionTime = endTime - startTime;
+		$( "#total_reaction_time" ).val( totalReactionTime );
+		
+		var recallReactionTime = 0;
+		if( typingStartTime != null ) {
+			var typingTotalTime = endTime - typingStartTime;
+			recallReactionTime = totalReactionTime - typingTotalTime;			
+		}
+		$( "#recall_reaction_time" ).val( recallReactionTime );
+	}	
+	
+</script>

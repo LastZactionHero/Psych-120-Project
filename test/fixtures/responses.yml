@@ -1,0 +1,37 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  type: MyString
+  StudyUser: 
+  Question: 
+  Test: 
+  test_period: 1
+  trial: 1
+  study_time: 1
+  response: MyString
+  recall_reaction_time: 1
+  total_reaction_time: 1
+  correct: false
+  keyword_hit_count: 1
+  keyword_miss_count: 1
+  keyword_total_count: 1
+  keyword_hits: MyString
+  keyword_misses: MyString
+
+two:
+  type: MyString
+  StudyUser: 
+  Question: 
+  Test: 
+  test_period: 1
+  trial: 1
+  study_time: 1
+  response: MyString
+  recall_reaction_time: 1
+  total_reaction_time: 1
+  correct: false
+  keyword_hit_count: 1
+  keyword_miss_count: 1
+  keyword_total_count: 1
+  keyword_hits: MyString
+  keyword_misses: MyString

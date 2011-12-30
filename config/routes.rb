@@ -31,6 +31,12 @@ Psychtest::Application.routes.draw do
       end
     end
     
+    resources :responses, :only => [] do
+      collection do
+        get 'dump'
+        get 'clear_all'
+      end
+    end
   end
   
   resources :test, :only => [] do

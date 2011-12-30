@@ -90,6 +90,7 @@ class TestController < ApplicationController
     if @test.state.blank?      
       @test.init_unanswered
       @test.init_queue
+      @test.trial = 0
       @test.state = "study"
       @test.save      
     end
@@ -101,11 +102,22 @@ class TestController < ApplicationController
   
   def complete_step
     @condition = @test.get_condition
-    @state = @test.get_state
-    
+    @state = @test.get_state    
+        
     # If studying, remove question from queue
     if @state == :study
-      @test.remove_current_question_from_queue      
+      @question = @test.get_next_question_from_queue
+      @test.remove_current_question_from_queue
+      
+      response = Response.new
+      response.question = @question
+      response.study_user = @user
+      response.test = @test
+      response.trial = @test.trial      
+      response.test_period = @test.week
+      response.response_type = "study"
+      response.study_time = params["study_time"].to_i
+      response.save
     end
     
     # If recalling, grade the answer and remove question from queue
@@ -113,7 +125,17 @@ class TestController < ApplicationController
       @question = @test.get_next_question_from_queue
       
       response_str = params[:response]
-      correct = @question.grade_response( response_str )
+      response = @question.grade_response( response_str )
+      response.question = @question
+      response.study_user = @user
+      response.test = @test
+      response.trial = @test.trial
+      response.test_period = @test.week
+      response.recall_reaction_time = params["recall_reaction_time"].to_i
+      response.total_reaction_time = params["total_reaction_time"].to_i
+      response.save
+      
+      correct = response.correct
       @test.remove_question_from_unanswered( @question ) if correct
       @test.remove_current_question_from_queue
     end
@@ -137,6 +159,7 @@ class TestController < ApplicationController
     # Reinitialize in study state
     if @condition == :study_recall and @state == :recall and @test.queue_size == 0 and @test.unanswered_size > 0
       @test.init_queue
+      @test.trial = @test.trial + 1
       @test.state = :study
     end
 

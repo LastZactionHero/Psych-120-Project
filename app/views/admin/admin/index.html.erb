@@ -19,3 +19,12 @@
 
 
 <br/><br/><br/>
+
+<h1>Responses</h1>
+<hr>
+<p><%= pluralize( Response.count, "response" ) %> completed</p>
+<p><%= link_to "Dump Data", dump_admin_responses_path %></p>
+<p><%= link_to "Delete All Responses", clear_all_admin_responses_path, :confirm => "Are you sure you would like to delete all responses?" %></p>
+
+
+<br/><br/><br/>

@@ -29,7 +29,7 @@ class Keyword < ActiveRecord::Base
     
     # Combine the original and synonym list, stem
     compare_list = self.synonyms_arr
-    compare_list << self.original
+    compare_list << String.new( self.original )
     compare_list_stems = compare_list.map{ |c| Stemmer::stem_word( c ) }
       
     # See if the stemmed comparison word exists in the list
