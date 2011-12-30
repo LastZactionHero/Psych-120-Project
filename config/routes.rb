@@ -38,9 +38,11 @@ Psychtest::Application.routes.draw do
       get 'home'
       post 'sign_in'
       get 'welcome'
+      get 'sign_out'
+      get 'finished'
       
       get 'step'
-      post 'complete_step'
+      post 'complete_step'      
     end
   end
   

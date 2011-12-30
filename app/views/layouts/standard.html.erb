@@ -14,7 +14,13 @@
 <body>
 
 <div id="header-bar">
-	<p class="header-text">Psych 120 Study</p>
+	<div id="header-left">
+		<p class="header-text">Psych 120 Study</p>
+	</div>
+	
+	<div id="header-right">
+		<% if @user.present? %><%= link_to "Sign Out", sign_out_test_index_path %><% end %>
+	</div>
 </div>
 
 <div id="content">

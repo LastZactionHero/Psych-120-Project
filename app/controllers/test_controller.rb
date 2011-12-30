@@ -1,5 +1,5 @@
 class TestController < ApplicationController
-  before_filter :get_user_or_redirect, :only => [:welcome, :step, :complete_step]
+  before_filter :get_user_or_redirect, :only => [:welcome, :step, :complete_step, :finished]
   before_filter :get_test, :only => [:welcome, :step, :complete_step]
     
   layout 'standard'
@@ -32,6 +32,11 @@ class TestController < ApplicationController
     end
   end
       
+  def sign_out
+    session[:user] = 0
+    redirect_to welcome_test_index_path
+  end
+  
   # First page after logging in
   def welcome
     week = TestMeta.week
@@ -45,7 +50,7 @@ class TestController < ApplicationController
       # User has already completed this week's test
       @welcome_state = :already_finished
     
-    elsif false # Check if in the middle of an existing test      
+    elsif @test.state and !@test.complete      
       # User is returning in the middle of an existing test
       @welcome_state = :already_started
       
@@ -79,25 +84,99 @@ class TestController < ApplicationController
   
   
   def step
+    @condition = @test.get_condition
     
+    # Starting a new test. Initialize everything.
+    if @test.state.blank?      
+      @test.init_unanswered
+      @test.init_queue
+      @test.state = "study"
+      @test.save      
+    end
+    
+    @state = @test.get_state
+    @question = @test.get_next_question_from_queue
   end
+  
   
   def complete_step
+    @condition = @test.get_condition
+    @state = @test.get_state
     
+    # If studying, remove question from queue
+    if @state == :study
+      @test.remove_current_question_from_queue      
+    end
+    
+    # If recalling, grade the answer and remove question from queue
+    if @state == :recall
+      @question = @test.get_next_question_from_queue
+      
+      response_str = params[:response]
+      correct = @question.grade_response( response_str )
+      @test.remove_question_from_unanswered( @question ) if correct
+      @test.remove_current_question_from_queue
+    end
+    
+    
+    # Finished study test
+    if @condition == :study and @state == :study and @test.queue_size == 0
+      @test.complete = true
+      @test.state = :finished
+    end
+    
+    
+    # Finished study portion of study/recall test
+    # Reinitialize in recall state
+    if @condition == :study_recall and @state == :study and @test.queue_size == 0
+      @test.init_queue
+      @test.state = :recall
+    end
+    
+    # Finished recall portion of study/recall test and unanswered questions remain
+    # Reinitialize in study state
+    if @condition == :study_recall and @state == :recall and @test.queue_size == 0 and @test.unanswered_size > 0
+      @test.init_queue
+      @test.state = :study
+    end
+
+    # Finished recall portion of study/recall test and no unanswered questions remain
+    # Reinitialize in study state
+    if @condition == :study_recall and @state == :recall and @test.queue_size == 0 and @test.unanswered_size == 0
+      @test.complete = true
+      @test.state = :finished
+    end
+            
+    @test.save
+    
+    redirect_to step_test_index_path
   end
   
+  def finished
+    
+  end
   
   protected
   
-  def get_user_or_redirect
-    redirect_to root_path unless session[:user].present?
-    @user = StudyUser.find( session[:user] ) if session[:user].present?
+  def get_user_or_redirect    
+    begin
+      @user = StudyUser.find( session[:user] ) if session[:user].present?      
+    rescue
+      session[:user] = nil
+      @user = nil
+      redirect_to root_path
+    end
   end
 
   def get_test
     week = TestMeta.week
-    @test = Test.where( { :study_user_id => @user, :week => week } ).first
-    redirect_to root_path unless @test.present? 
+    if week >= TestMeta.max_weeks
+      redirect_to finished_test_index_path
+    else
+      @test = Test.where( { :study_user_id => @user, :week => week } ).first
+      redirect_to root_path unless @test.present?      
+    end
+ 
   end
   
   

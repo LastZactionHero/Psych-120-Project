@@ -1,0 +1,19 @@
+<div id="step-box">
+
+	<%= form_tag( complete_step_test_index_path ) do %>
+	
+		<% if @state == :study %>
+			<p><%= @question.study_text %></p>
+			<p class="next-link"><%= submit_tag "Next" %></p>
+		<% elsif @state == :recall %>
+			<p><%= @question.question_text %></p>
+			<%= text_area_tag "response" %><br/>
+			<p class="next-link"><%= submit_tag "Next" %></p>
+		<% else %>
+		  <p>You have completed the study for this week. Thank you!</p>
+		  <p class="next-link"><%= link_to "Sign Out", sign_out_test_index_path %></p>
+		<% end %>
+		
+	<% end %>
+
+</div>
