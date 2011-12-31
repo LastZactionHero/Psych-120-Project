@@ -53,7 +53,7 @@ class Question < ActiveRecord::Base
     response.keyword_total_count = self.keywords.length
     response.keyword_hits = found_keywords.map{ |k| k.original }.join( ", " )
     response.keyword_misses = self.keywords.map { |k| found_keywords.include?( k ) ? nil : k }.compact.map{ |k| k.original }.join( ", " )
-    response.correct = ( found_keywords.length.to_f / self.keywords.length.to_f ) > 0.75 # Success is > 0.75 matching keywords
+    response.correct = ( found_keywords.length.to_f / self.keywords.length.to_f ) >= 0.75 # Success is > 0.75 matching keywords
     response.save
     response    
   end
