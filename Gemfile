@@ -26,6 +26,7 @@ gem 'sqlite3'
 gem "jquery-rails"
 gem "metanym"
 gem "fast-stemmer"
+gem "spellingbee"
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
