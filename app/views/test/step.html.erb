@@ -1,20 +1,34 @@
-<div id="step-box">
-
-	<%= form_tag( complete_step_test_index_path, {:onSubmit => 'setTimes()'} ) do %>
+<div id="title">
+	<% if @state == :study %>
+		Study this concept:
+	<% elsif @state == :recall %>
+		Try to recall this concept:
+	<% end %>
+</div>
 	
-		<% if @state == :study %>
+
+<div id="step-box">
+	<%= form_tag( complete_step_test_index_path, {:onSubmit => 'beforeSubmit()'} ) do %>
+	
+		<% if @state == :study %>			
+			<p class="question"><%= @question.question_text %></p>
 			<p><%= @question.study_text %></p>
 			<%= hidden_field_tag :study_time, "0" %>
 			<p class="next-link"><%= submit_tag( "Next" ) %></p>
+			
 		<% elsif @state == :recall %>
-			<p><%= @question.question_text %></p>
+			<p class="question"><%= @question.question_text %></p>
 			<%= text_area_tag "response" %><br/>
 			<%= hidden_field_tag :total_reaction_time, "0" %>
 			<%= hidden_field_tag :recall_reaction_time, "0" %>
+			<%= hidden_field_tag :keystroke_count, "0" %>
+			<p class="correct-responses">You have correctly answered this question <%= pluralize( @correct_response_count, "time" ) %> this week.</p>
 			<p class="next-link"><%= submit_tag "Next" %></p>
+			
 		<% else %>
 		  <p>You have completed the study for this week. Thank you!</p>
 		  <p class="next-link"><%= link_to "Sign Out", sign_out_test_index_path %></p>
+		  
 		<% end %>
 		
 	<% end %>
@@ -25,6 +39,7 @@
 	
 	startTime = 0;
 	typingStartTime = null;
+	keystrokeCount = 0;
 	
 	$(document).ready( function() {
 		var date = new Date();
@@ -35,8 +50,17 @@
 				var date = new Date();
 				typingStartTime = date.getTime();
 			}
+			
+			keystrokeCount += 1;
+			$( "#keystroke_count" ).val( keystrokeCount );
 		});
 	} );
+	
+	function beforeSubmit() {
+		setTimes();
+		keystrokeWarning();
+		return true;
+	}
 	
 	function setTimes() {
 		var date = new Date();
@@ -55,5 +79,11 @@
 		}
 		$( "#recall_reaction_time" ).val( recallReactionTime );
 	}	
+	
+	function keystrokeWarning() {
+		if( keystrokeCount > 0 && keystrokeCount < $( "#response" ).val().length ) {
+			alert( "Please make sure to type responses directly. Copy/pasting is strongly discouraged." );
+		}
+	}
 	
 </script>

@@ -6,4 +6,13 @@
 		<% if @error == :no_email %>You must provide an email address<% end %>
 		<% if @error == :user_not_found %>No user was found with this email address<% end %>		
 	<% end %>
+	
+	<div id="jswarning">Javascript is not enabled, and is required for this test. Please enable it in your browser.</div>
 </div>
+
+<script type="text/javascript">
+
+	$( document ).ready( function() {
+		$( "#jswarning" ).hide();
+	});
+</script>

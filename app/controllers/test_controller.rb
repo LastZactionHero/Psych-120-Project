@@ -67,7 +67,8 @@ class TestController < ApplicationController
       if @test.condition == "none"
         # There is no test this week
         @condition = :none
-          
+        @test.complete = true
+        
       elsif @test.condition == "study"
         # This is a study week
         @condition = :study
@@ -78,6 +79,8 @@ class TestController < ApplicationController
         
       end
                     
+      @test.started_at = DateTime.now
+      @test.save
     end
                        
   end
@@ -97,6 +100,9 @@ class TestController < ApplicationController
     
     @state = @test.get_state
     @question = @test.get_next_question_from_queue
+    
+    @correct_response_count = Response.get_correct_response_count_for_question( @question, @user, @test ) if @state == :recall
+    
   end
   
   
@@ -133,10 +139,10 @@ class TestController < ApplicationController
       response.test_period = @test.week
       response.recall_reaction_time = params["recall_reaction_time"].to_i
       response.total_reaction_time = params["total_reaction_time"].to_i
+      response.keystroke_count = params["keystroke_count"].to_i
       response.save
-      
-      correct = response.correct
-      @test.remove_question_from_unanswered( @question ) if correct
+                  
+      @test.remove_question_from_unanswered( @question ) if Response.get_correct_response_count_for_question( @question, @user, @test ) == 3      
       @test.remove_current_question_from_queue
     end
     

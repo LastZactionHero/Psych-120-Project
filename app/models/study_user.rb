@@ -26,12 +26,6 @@ class StudyUser < ActiveRecord::Base
   
   protected
   
-  def generate_counterbalance_conditions
-    Test.test_types.each do |type|
-      puts "type: #{type}"
-    end
-  end
-  
   def init_tests
     conditions = Test.generate_counterbalance_conditions_for_user( self, TestMeta.max_weeks - 1 )
     

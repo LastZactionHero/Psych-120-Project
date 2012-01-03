@@ -55,6 +55,17 @@
   margin-top: 56px;
 }
 
+#title {
+  position: relative;
+  left: -20px;
+  width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 56px;
+  margin-bottom: 5px;
+  
+  font-size: 1.5em;  
+}
 
 #step-box {
   position: relative;
@@ -64,8 +75,7 @@
   border: 1px solid black;
   background-color: #EEEEEE;
   border-radius: 5px;
-  padding: 12px 20px 12px 20px;
-  margin-top: 56px;
+  padding: 20px 20px 12px 20px;  
 }
 
 #step-box p {
@@ -75,6 +85,15 @@
 #step-box p.next-link {
   text-align: right;
   margin-top: 16px;
+}
+
+#step-box p.question {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#step-box p.correct-responses {
+  font-size: 0.75em;
 }
 
 h1 {
@@ -90,4 +109,11 @@ textarea {
   width: 100%;
   font-family: "Verdana";
   resize: none;
+}
+
+#jswarning {
+  background-color: #FFFFCC;
+  border: 1px solid red;
+  padding: 4px;  
+  margin-top: 10px;
 }

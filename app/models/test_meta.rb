@@ -18,7 +18,7 @@ class TestMeta < ActiveRecord::Base
     
   
   def self.max_weeks
-    15
+    TestMeta.first.study_weeks ? TestMeta.first.study_weeks : 15 
   end
   
 end

@@ -28,6 +28,7 @@ Psychtest::Application.routes.draw do
       collection do
         post 'advance_to_next_week'
         post 'revert_to_last_week'
+        post 'update_week_count'
       end
     end
     

@@ -1,10 +1,17 @@
 <h1>Test State</h1>
 <hr>
-<p>Test Week: <%= TestMeta.week %></p> 
+<%= form_tag( update_week_count_admin_test_meta_path ) do %>
+	<p>Weeks in Study:
+	<%= text_field_tag :study_weeks, TestMeta.max_weeks, :size => 2 %>
+	<%= submit_tag "Change" %>
+<% end %>
+
+<p>Current Test Week: <%= TestMeta.week %></p> 
 <p>
 	<% if TestMeta.week < TestMeta.max_weeks - 1 %><%= link_to "(advance to next week)", advance_to_next_week_admin_test_meta_path, :method => :post %><% end %>
 	<% if TestMeta.week > 0 %><%= link_to "(revert to last week)", revert_to_last_week_admin_test_meta_path, :method => :post %><% end %>
 </p>
+
 	
 <br/><br/><br/>
 

@@ -87,6 +87,20 @@ table {
   border: 1px solid #333333;
 }
 
+table#dump tr.study {
+  background-color: #CCCCFF;
+}
+
+table#dump tr.recall {
+  background-color: #CCFFCC;
+}
+
+table#dump td { 
+  border-left: 1px solid #333333;
+  border-bottom: 1px solid #CCCCCC;
+  font-size: 10px;
+}
+
 td.cell-counterbalance {
   font-size: 8px;
   text-align: center;

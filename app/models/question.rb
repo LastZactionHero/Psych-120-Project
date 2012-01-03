@@ -27,14 +27,16 @@ class Question < ActiveRecord::Base
     
     # Split the response text into keywords
     response_keywords = response_str.strip.downcase.gsub( /[^[:alnum:]]/, " " ).split( ' ' ).map{ |k| k.strip } 
+    puts "1 Response Keywords: #{response_keywords.inspect}"
     
     # Add spelling corrections if necessary
     corrected_keywords = Array.new
     response_keywords.each { |response_keyword| corrected_keywords << Question.check_spelling( response_keyword ) }
-    response_keywords = ( response_keywords + corrected_keywords ).compact!
-            
+    response_keywords = ( response_keywords + corrected_keywords )
+    response_keywords.compact!    
+                
     # Check every response keyword to see if it matches a question keyword or synonym
-    found_keywords = Array.new
+    found_keywords = Array.new    
     response_keywords.each do |response_keyword|      
       # Comparing to each question keyword
       self.keywords.each do |question_keyword|

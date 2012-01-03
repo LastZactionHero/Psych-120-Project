@@ -1,21 +1,42 @@
-User Email Hash / Response Type / Test Week / Trial / Study Text / Study Time / Response / Recall Reaction Time / Total Reaction Time / Correct / Keyword Hit Count / Keyword Miss Count / Keyword Hits / Keyword Misses / Total Keyword Count
-<br/><br/>
-
+<table id="dump">
+	<tr>
+		<td>User ID</td>
+		<td>Response Type</td>
+		<td>Test Week</td>
+		<td>Trial</td>
+		<td>Study Text</td>
+		<td>Study Time</td>
+		<td>Response</td>
+		<td>Recall Reaction Time</td>
+		<td>Total Reaction Time</td>
+		<td>Correct</td>
+		<td>Keyword Hit Count</td>
+		<td>Keyword Miss Count</td>
+		<td>Keyword Hits</td>
+		<td>Keyword Misses</td>
+		<td>Total Keyword Count</td>
+		<td>Keystroke Count</td>
+		<td>Copy-Paste Flag</td>
+	</tr>
 <% @responses.each do |response| %>
-    <%= response.study_user.email_hash %> /
-	<%= response.response_type %> /
-	<%= response.test_period %> /
-	<%= response.trial %> /
-	<%= response.question.study_text if response.question %> /
-	<%= response.study_time %> /
-	<%= response.response %> /
-	<%= response.recall_reaction_time %> /
-	<%= response.total_reaction_time %> /
-	<%= response.correct %> /
-	<%= response.keyword_hit_count %> /
-	<%= response.keyword_miss_count %> /
-	<%= response.keyword_hits %> /
-	<%= response.keyword_misses %> /
-	<%= response.keyword_total_count %> /<br/>
+	<tr class="<%= response.response_type %>">
+	    <td><%= response.study_user.id %></td>
+		<td><%= response.response_type %></td>
+		<td><%= response.test_period %></td>
+		<td><%= response.trial %></td>
+		<td><%= response.question.study_text if response.question %></td>
+		<td><%= response.study_time %></td>
+		<td><%= response.response %></td>
+		<td><%= response.recall_reaction_time %></td>
+		<td><%= response.total_reaction_time %></td>
+		<td><%= response.correct %></td>
+		<td><%= response.keyword_hit_count %></td>
+		<td><%= response.keyword_miss_count %></td>
+		<td><%= response.keyword_hits %></td>
+		<td><%= response.keyword_misses %></td>
+		<td><%= response.keyword_total_count %></td>
+		<td><%= response.keystroke_count %></td>
+		<td><%= response.keystroke_count ? response.keystroke_count < response.response.length : false %></td>
+	</tr>
 <% end %>
-
+</table>

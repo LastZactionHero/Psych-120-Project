@@ -10,4 +10,15 @@ class Admin::TestMetaController < ApplicationController
     redirect_to admin_root_path
   end
   
+  def update_week_count
+    study_weeks = params[:study_weeks]
+    if study_weeks and study_weeks.to_i > 0
+      meta = TestMeta.first
+      meta.study_weeks = study_weeks.to_i
+      meta.save
+    end
+     
+    redirect_to admin_root_path
+  end
+  
 end
