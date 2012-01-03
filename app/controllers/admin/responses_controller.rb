@@ -1,7 +1,7 @@
 class Admin::ResponsesController < ApplicationController
   
   def dump    
-    @tests = Test.find( :all, :order => 'started_at ASC' )  
+    @tests = Test.order( 'week ASC' ).order( 'study_user_id ASC' )  
   end
   
   def clear_all
