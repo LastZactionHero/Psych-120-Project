@@ -1,6 +1,10 @@
 class Test < ActiveRecord::Base
   belongs_to :study_user
   
+  def responses
+    Response.where( :test_id => self.id )
+  end
+  
   def self.generate_counterbalance_conditions_for_user( user, max_weeks )
     conditions = Array.new
     possible_conditions = [ :study, :study_recall, :none ]

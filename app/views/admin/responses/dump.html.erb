@@ -18,25 +18,30 @@
 		<td>Keystroke Count</td>
 		<td>Copy-Paste Flag</td>
 	</tr>
-<% @responses.each do |response| %>
-	<tr class="<%= response.response_type %>">
-	    <td><%= response.study_user.id %></td>
-		<td><%= response.response_type %></td>
-		<td><%= response.test_period %></td>
-		<td><%= response.trial %></td>
-		<td><%= response.question.study_text if response.question %></td>
-		<td><%= response.study_time %></td>
-		<td><%= response.response %></td>
-		<td><%= response.recall_reaction_time %></td>
-		<td><%= response.total_reaction_time %></td>
-		<td><%= response.correct %></td>
-		<td><%= response.keyword_hit_count %></td>
-		<td><%= response.keyword_miss_count %></td>
-		<td><%= response.keyword_hits %></td>
-		<td><%= response.keyword_misses %></td>
-		<td><%= response.keyword_total_count %></td>
-		<td><%= response.keystroke_count %></td>
-		<td><%= response.keystroke_count ? response.keystroke_count < response.response.length : false %></td>
-	</tr>
+	
+<% @tests.each do |test| %>
+	<% test.responses.each do |response| %>
+		<tr class="<%= response.response_type %>">
+		    <td><%= response.study_user.id %></td>
+			<td><%= response.response_type %></td>
+			<td><%= response.test_period %></td>
+			<td><%= response.trial %></td>
+			<td><%= response.question.study_text if response.question %></td>
+			<td><%= response.study_time %></td>
+			<td><%= response.response %></td>
+			<td><%= response.recall_reaction_time %></td>
+			<td><%= response.total_reaction_time %></td>
+			<td><%= response.correct %></td>
+			<td><%= response.keyword_hit_count %></td>
+			<td><%= response.keyword_miss_count %></td>
+			<td><%= response.keyword_hits %></td>
+			<td><%= response.keyword_misses %></td>
+			<td><%= response.keyword_total_count %></td>
+			<td><%= response.keystroke_count %></td>
+			
+			<% copy_paste_flag = response.keystroke_count ? response.keystroke_count < response.response.length : nil %> 
+			<td class="<% if copy_paste_flag %>copy-paste-flag<% end %>"><%= copy_paste_flag %></td>
+		</tr>
+	<% end %>
 <% end %>
 </table>

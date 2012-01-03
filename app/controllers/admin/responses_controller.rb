@@ -1,7 +1,7 @@
 class Admin::ResponsesController < ApplicationController
   
   def dump    
-    @responses = Response.all  
+    @tests = Test.all  
   end
   
   def clear_all
