@@ -2,7 +2,7 @@ class Test < ActiveRecord::Base
   belongs_to :study_user
   
   def responses
-    Response.where( :test_id => self.id )
+    Response.where( :test_id => self.id,  ).order( 'created_at ASC' )
   end
   
   def self.generate_counterbalance_conditions_for_user( user, max_weeks )
