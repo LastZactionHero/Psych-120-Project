@@ -94,7 +94,8 @@ class TestController < ApplicationController
     @question = @test.get_next_question_from_queue
     
     @correct_response_count = Response.get_correct_response_count_for_question( @question, @user, @test ) if @state == :recall
-    @correct = flash[:correct]    
+    @correct = flash[:correct]
+    @correct = true    
   end
   
   
