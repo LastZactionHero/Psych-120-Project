@@ -22,6 +22,18 @@ hr {
   padding-left: 16px;
 }
 
+#header-bar #left-links {
+  position: relative;
+  float: left;
+}
+
+#header-bar #right-links {
+  position: relative;
+  float: right;
+  text-align: right;
+  right: 25px;
+}
+
 .header-text {
   position: relative;
   top: 5px;
@@ -129,4 +141,8 @@ td.completed {
 
 .counterbalance-study_recall {
   background-color: #77CC77;
+}
+
+.counterbalance-exam {
+  background-color: #CCCC77;
 }

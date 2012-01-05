@@ -3,7 +3,10 @@ Psychtest::Application.routes.draw do
 
   namespace :admin do
     root :to => "admin#index"    
-      
+    match 'sign_in' => "admin#sign_in"
+    match 'complete_sign_in' => "admin#complete_sign_in"
+    match 'sign_out'  => "admin#sign_out"
+    
     resources :questions, :only =>[ :index, :new, :create, :edit, :update, :destroy ] do            
       member do
         get 'keywords_wizard_select_new'
@@ -16,12 +19,23 @@ Psychtest::Application.routes.draw do
         
         get 'edit_keyword'
         put 'update_keyword'
-        delete 'destroy_keyword'        
+        delete 'destroy_keyword'
+        
+        get 'deactivate'                        
       end      
+      
+      collection do 
+        get 'deactivate_all'
+        get 'inactive'
+        post 'activate'
+        get 'activate_all'
+      end
     end
     
     resources :study_users, :only => [ :index, :new, :create, :destroy, :edit, :update ] do
-      
+      member do
+        get 'clear_test'
+      end
     end
     
     resources :test_meta, :only => [] do
@@ -29,6 +43,7 @@ Psychtest::Application.routes.draw do
         post 'advance_to_next_week'
         post 'revert_to_last_week'
         post 'update_week_count'
+        post 'update_passes'
       end
     end
     

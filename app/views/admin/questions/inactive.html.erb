@@ -1,0 +1,15 @@
+<h1>Inactive Questions</h1>
+
+<%= form_tag( activate_admin_questions_path ) do %>
+	<ol>
+		<% @inactive_questions.each do |question| %>
+			<li>			
+				<p><%= question.study_text %></p>
+				<p><%= question.question_text %></p>
+				<p><%= check_box_tag( "questions[#{question.id}]", 'question', false ) %> Active</p>		
+			</li>
+		<% end %>		
+	</ol>
+	
+	<%= submit_tag "Update" %>
+<% end %>

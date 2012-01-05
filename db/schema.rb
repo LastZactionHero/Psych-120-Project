@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120103004336) do
+ActiveRecord::Schema.define(:version => 20120104224122) do
 
   create_table "keywords", :force => true do |t|
     t.string   "original"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20120103004336) do
     t.string   "question_text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active"
   end
 
   create_table "responses", :force => true do |t|
@@ -60,6 +61,8 @@ ActiveRecord::Schema.define(:version => 20120103004336) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "study_weeks"
+    t.integer  "correct_response_passes"
+    t.integer  "study_text_passes"
   end
 
   create_table "tests", :force => true do |t|
@@ -74,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20120103004336) do
     t.string   "state"
     t.integer  "trial"
     t.datetime "started_at"
+    t.integer  "study_pass"
   end
 
   create_table "users", :force => true do |t|

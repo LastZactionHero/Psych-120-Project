@@ -63,20 +63,11 @@ class TestController < ApplicationController
       # User is starting a new test
       @welcome_state = :new_test
       
+      @condition = @test.get_condition
       
-      if @test.condition == "none"
-        # There is no test this week
-        @condition = :none
-        @test.complete = true
-        
-      elsif @test.condition == "study"
-        # This is a study week
-        @condition = :study
-        
-      else
-        # This is a study-recall week
-        @condition = :study_recall
-        
+      if @test.condition == "none" or Question.where( :active => true ).empty?
+        # There is no test this week        
+        @test.complete = true              
       end
                     
       @test.started_at = DateTime.now
@@ -86,7 +77,7 @@ class TestController < ApplicationController
   end
   
   
-  def step
+  def step    
     @condition = @test.get_condition
     
     # Starting a new test. Initialize everything.
@@ -94,7 +85,8 @@ class TestController < ApplicationController
       @test.init_unanswered
       @test.init_queue
       @test.trial = 0
-      @test.state = "study"
+      @test.state = @test.get_condition == :exam ? "recall" : "study"
+      @test.study_pass = 0
       @test.save      
     end
     
@@ -102,7 +94,7 @@ class TestController < ApplicationController
     @question = @test.get_next_question_from_queue
     
     @correct_response_count = Response.get_correct_response_count_for_question( @question, @user, @test ) if @state == :recall
-    
+    @correct = flash[:correct]    
   end
   
   
@@ -141,16 +133,29 @@ class TestController < ApplicationController
       response.total_reaction_time = params["total_reaction_time"].to_i
       response.keystroke_count = params["keystroke_count"].to_i
       response.save
-                  
-      @test.remove_question_from_unanswered( @question ) if Response.get_correct_response_count_for_question( @question, @user, @test ) == 3      
+      
+      correct_responses = Response.get_correct_response_count_for_question( @question, @user, @test )         
+      if ( @condition == :exam and correct_responses == 1 ) or ( @condition == :study_recall and correct_responses == TestMeta.correct_response_passes )
+        @test.remove_question_from_unanswered( @question )      
+      end
+      
+      flash[:correct] = response.correct
       @test.remove_current_question_from_queue
     end
     
     
     # Finished study test
     if @condition == :study and @state == :study and @test.queue_size == 0
-      @test.complete = true
-      @test.state = :finished
+
+      @test.study_pass = @test.study_pass + 1
+      
+      if @test.study_pass == TestMeta.study_text_passes
+        @test.complete = true
+        @test.state = :finished
+      else
+        @test.init_queue
+      end      
+
     end
     
     
@@ -171,13 +176,13 @@ class TestController < ApplicationController
 
     # Finished recall portion of study/recall test and no unanswered questions remain
     # Reinitialize in study state
-    if @condition == :study_recall and @state == :recall and @test.queue_size == 0 and @test.unanswered_size == 0
+    if ( @condition == :study_recall or @condition == :exam ) and @state == :recall and @test.queue_size == 0 and @test.unanswered_size == 0
       @test.complete = true
       @test.state = :finished
     end
             
-    @test.save
-    
+    @test.save    
+      
     redirect_to step_test_index_path
   end
   

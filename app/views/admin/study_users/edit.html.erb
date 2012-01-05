@@ -36,10 +36,12 @@
 						<select name="condition[<%= test.week %>]">
 			  				<option value="study" <% if test.condition == "study" %>selected="selected"<% end %> >Study</option>
 			  				<option value="study_recall" <% if test.condition == "study_recall" %>selected="selected"<% end %> >Study/Recall</option>
+			  				<option value="exam" <% if test.condition == "exam" %>selected="selected"<% end %> >Exam</option>
 			  				<option value="none" <% if test.condition == "none" %>selected="selected"<% end %> >None</option>
 						</select>
 					<% end %>
 				</p>
+				<p><%= link_to "Reset Test and Responses", clear_test_admin_study_user_path( :test => test.id ) %></p>
 			</li>
 		<% end %>
 	</ul>

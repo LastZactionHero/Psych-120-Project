@@ -18,7 +18,17 @@ class TestMeta < ActiveRecord::Base
     
   
   def self.max_weeks
-    TestMeta.first.study_weeks ? TestMeta.first.study_weeks : 15 
+    # Depreciated:
+    #TestMeta.first.study_weeks ? TestMeta.first.study_weeks : 15   
+    2 
+  end
+  
+  def self.study_text_passes
+    TestMeta.first.study_text_passes
+  end
+  
+  def self.correct_response_passes
+    TestMeta.first.correct_response_passes
   end
   
 end

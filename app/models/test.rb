@@ -7,15 +7,11 @@ class Test < ActiveRecord::Base
   
   def self.generate_counterbalance_conditions_for_user( user, max_weeks )
     conditions = Array.new
-    possible_conditions = [ :study, :study_recall, :none ]
     
-    condition_idx = user.id % possible_conditions.size
-    (0..max_weeks).each do |week_ids|
-      conditions << possible_conditions[condition_idx]
-      condition_idx = ( condition_idx + 1 ) % possible_conditions.size
-    end
-    
-    conditions    
+    possible_conditions = [ :study, :study_recall ]
+    conditions << possible_conditions[ user.id % 2 ]
+    conditions << :exam
+    conditions
   end
   
   def self.condition_symbol_to_int( symbol )
@@ -28,8 +24,10 @@ class Test < ActiveRecord::Base
       condition = :none        
     elsif self.condition == "study"
       condition = :study      
-    else
+    elsif self.condition == "study_recall"    
       condition = :study_recall
+    else
+      condition = :exam    
     end
     condition  
   end
@@ -46,7 +44,7 @@ class Test < ActiveRecord::Base
   end
   
   def init_unanswered
-    self.unanswered = Question.all.map{ |q| q.id }.join( "," )
+    self.unanswered = Question.where( :active => true ).map{ |q| q.id }.join( "," )
   end
   
   def unanswered_arr

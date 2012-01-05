@@ -1,20 +1,26 @@
+<% if @correct != nil %>
+	<div id="last-question-correct">
+		Last Question: <span class="<%= @correct ? 'correct' : 'incorrect' %>"><%= @correct ? "Correct!" : "Incorrect" %></span>
+	</div>		
+<% end %>
+	
 <div id="title">
 	<% if @state == :study %>
 		Study this concept:
 	<% elsif @state == :recall %>
 		Try to recall this concept:
 	<% end %>
-</div>
-	
+</div>	
 
-<div id="step-box">
+<div id="step-box">	
+		
 	<%= form_tag( complete_step_test_index_path, {:onSubmit => 'beforeSubmit()'} ) do %>
 	
 		<% if @state == :study %>			
 			<p class="question"><%= @question.question_text %></p>
 			<p><%= @question.study_text %></p>
 			<%= hidden_field_tag :study_time, "0" %>
-			<p class="next-link"><%= submit_tag( "Next" ) %></p>
+			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
 			
 		<% elsif @state == :recall %>
 			<p class="question"><%= @question.question_text %></p>
@@ -22,13 +28,16 @@
 			<%= hidden_field_tag :total_reaction_time, "0" %>
 			<%= hidden_field_tag :recall_reaction_time, "0" %>
 			<%= hidden_field_tag :keystroke_count, "0" %>
-			<p class="correct-responses">You have correctly answered this question <%= pluralize( @correct_response_count, "time" ) %> this week.</p>
-			<p class="next-link"><%= submit_tag "Next" %></p>
 			
-		<% else %>
+			<% if @condition != :exam %>
+				<p class="correct-responses">You have correctly answered this question <%= pluralize( @correct_response_count, "time" ) %> this week.</p>
+			<% end %>
+			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
+			
+		<% elsif @state == :finished %>
 		  <p>You have completed the study for this week. Thank you!</p>
 		  <p class="next-link"><%= link_to "Sign Out", sign_out_test_index_path %></p>
-		  
+
 		<% end %>
 		
 	<% end %>
@@ -57,6 +66,7 @@
 	} );
 	
 	function beforeSubmit() {
+		$( "#next-button" ).attr( 'disabled', 'disabled' );
 		setTimes();
 		keystrokeWarning();
 		return true;

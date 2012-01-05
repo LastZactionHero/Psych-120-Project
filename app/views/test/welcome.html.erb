@@ -18,10 +18,13 @@
 	    <p>This week you will study a list of terms. You may take as much time as you need.</p>
 	    <p class="next-link"><%= link_to "Start", step_test_index_path %></p>
 	    
-	  <% else %>  	
+	  <% elsif @condition == :study_recall %>  	
 	    <p>This week you will study a list of terms and be tested over their definitions.</p>
 	    <p class="next-link"><%= link_to "Start", step_test_index_path %></p>
-	    
+	   
+	  <% elsif @condition == :exam %>
+	  	<p>This week you will be tested over a list of terms.</p>
+	  	<p class="next-link"><%= link_to "Start", step_test_index_path %></p>
 	  <% end %>
 	        
 	<% end %>

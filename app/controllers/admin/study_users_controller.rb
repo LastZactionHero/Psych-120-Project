@@ -1,5 +1,5 @@
-class Admin::StudyUsersController < ApplicationController
-  before_filter :find_user, :only => [:destroy, :edit, :update]
+class Admin::StudyUsersController < Admin::AdminController
+  before_filter :find_user, :only => [:destroy, :edit, :update, :clear_test]
     
   layout 'admin'
   
@@ -46,7 +46,26 @@ class Admin::StudyUsersController < ApplicationController
     
     redirect_to edit_admin_study_user_path( @user )
   end
-  
+
+  def clear_test
+    test = Test.find( params[:test] )
+      
+    Response.where( :test_id => test.id ).each do |response|
+      response.delete
+    end
+    
+    test.complete = false
+    test.unanswered = nil
+    test.queue = nil
+    test.state = nil
+    test.started_at = nil
+    test.trial = nil
+    test.study_pass = nil
+    test.save
+      
+    redirect_to edit_admin_study_user_path( @user )
+  end
+    
   protected
   
   def find_user

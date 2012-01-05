@@ -1,4 +1,5 @@
-class Admin::QuestionsController < ApplicationController
+class Admin::QuestionsController < Admin::AdminController
+  before_filter :check_admin_flag
   before_filter :get_question_or_fail, :only => [ 
       :edit, 
       :update, 
@@ -10,7 +11,8 @@ class Admin::QuestionsController < ApplicationController
       :edit_keyword, 
       :update_keyword, 
       :keywords_create, 
-      :destroy_keyword ]
+      :destroy_keyword,
+      :deactivate ]
   before_filter :get_keyword, :only => [:edit_keyword, :update_keyword, :destroy_keyword]
       
   layout 'admin'
@@ -22,7 +24,7 @@ class Admin::QuestionsController < ApplicationController
   
   # List all test questions
   def index
-
+    @questions = Question.where( :active => true )
   end
 
   # Create a new test question
@@ -38,7 +40,9 @@ class Admin::QuestionsController < ApplicationController
   # Create a new test question
   # Forward to Keyword Selection Wizard
   def create
-    question = Question.create( params[:question] )      
+    question = Question.new( params[:question] )
+    question.active = true
+    question.save      
     redirect_to keywords_wizard_select_new_admin_question_path( question )
   end
   
@@ -131,8 +135,49 @@ class Admin::QuestionsController < ApplicationController
     @question.keywords.delete( @keyword )
     @keyword.delete
     redirect_to edit_admin_question_path( @question )
+  end 
+  
+  #------------------------------------------------------------------------
+  # Activiating and Deactivating
+  #------------------------------------------------------------------------
+  def deactivate_all
+    Question.where( :active => true ).each do |question|
+      question.active = false
+      question.save
+    end
+    
+    redirect_to admin_root_path
+  end
+    
+  def inactive
+    @inactive_questions = Question.where( :active => false )
   end
   
+  def activate
+    questions = params[:questions].keys().map{ |q| Question.find( q.to_i ) }
+    questions.each do |question|
+      question.active = true
+      question.save
+    end
+    
+    redirect_to admin_root_path      
+  end  
+  
+  def deactivate
+    @question.active = false
+    @question.save
+    
+    redirect_to admin_questions_path
+  end
+
+  def activate_all
+    Question.where( :active => false ).each do |question|
+      question.active = true
+      question.save
+    end
+    
+    redirect_to admin_root_path
+  end  
   
   protected
   

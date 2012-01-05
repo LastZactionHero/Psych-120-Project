@@ -14,8 +14,14 @@
 <body>
 
 <div id="header-bar">
+	<div id="left-links">
 	<p class="header-text">Psych 120 Study - Administration</p>
 	<p class="breadcrumbs"><%=raw get_bread_crumb(request.fullpath) %></p>
+	</div>
+	
+	<div id="right-links">
+		<p class="breadcrumbs"><%= link_to "Sign Out", admin_sign_out_path %></p>
+	</div>
 </div>
 
 <div id="content">

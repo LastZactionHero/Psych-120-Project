@@ -1,24 +1,28 @@
 <h1>Test State</h1>
 <hr>
-<%= form_tag( update_week_count_admin_test_meta_path ) do %>
-	<p>Weeks in Study:
-	<%= text_field_tag :study_weeks, TestMeta.max_weeks, :size => 2 %>
-	<%= submit_tag "Change" %>
-<% end %>
-
 <p>Current Test Week: <%= TestMeta.week %></p> 
 <p>
 	<% if TestMeta.week < TestMeta.max_weeks - 1 %><%= link_to "(advance to next week)", advance_to_next_week_admin_test_meta_path, :method => :post %><% end %>
 	<% if TestMeta.week > 0 %><%= link_to "(revert to last week)", revert_to_last_week_admin_test_meta_path, :method => :post %><% end %>
 </p>
 
-	
+<br/>
+<%= form_tag( update_passes_admin_test_meta_path ) do %>
+	<p>Passes through study text: <%= text_field_tag :study_text_passes, TestMeta.study_text_passes, :size => 2 %></p>
+	<p>Correct responses for questions: <%= text_field_tag :correct_response_passes, TestMeta.correct_response_passes, :size => 2 %></p>
+	<p><%= submit_tag "Change" %></p> 
+<% end %>
+
 <br/><br/><br/>
 
 <h1>Test Questions</h1>
 <hr>
-<p>This test contains <%= pluralize( Question.count, "question" ) %></p>
-<p><%= link_to "Edit", admin_questions_path %></p>
+<p><%= pluralize( @active_question_count, "active question" ) %></p>
+<p><%= link_to "Edit", admin_questions_path %> | <%= link_to "Deactivate All", deactivate_all_admin_questions_path %></p>
+
+<br/>
+<p><%= pluralize( @inactive_question_count, "inactive question" ) %></p>
+<p><%= link_to "Reactivate", inactive_admin_questions_path %> |  <%= link_to "Reactivate All", activate_all_admin_questions_path %></p>
 		
 <br/><br/><br/>
 

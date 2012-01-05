@@ -1,4 +1,4 @@
-class Admin::ResponsesController < ApplicationController
+class Admin::ResponsesController < Admin::AdminController
   
   def dump    
     @tests = Test.order( 'week ASC' ).order( 'study_user_id ASC' )  
