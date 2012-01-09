@@ -5,7 +5,7 @@ Psychtest::Application.routes.draw do
     root :to => "admin#index"    
     match 'sign_in' => "admin#sign_in"
     match 'complete_sign_in' => "admin#complete_sign_in"
-    match 'sign_out'  => "admin#sign_out"
+    match 'sign_out'  => "admin#sign_out"       
     
     resources :questions, :only =>[ :index, :new, :create, :edit, :update, :destroy ] do            
       member do
@@ -67,8 +67,9 @@ Psychtest::Application.routes.draw do
       post 'complete_step'      
     end
   end
-  
+
   root :to => "test#home"
+  match 'career_account_login_test' => "career_account#login"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
