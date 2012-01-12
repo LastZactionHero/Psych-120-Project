@@ -135,7 +135,7 @@ class TestController < ApplicationController
       response.save
       
       correct_responses = Response.get_correct_response_count_for_question( @question, @user, @test )         
-      if ( @condition == :exam and correct_responses == 1 ) or ( @condition == :study_recall and correct_responses == TestMeta.correct_response_passes )
+      if ( @condition == :exam ) or ( @condition == :study_recall and correct_responses == TestMeta.correct_response_passes )
         @test.remove_question_from_unanswered( @question )      
       end
       
