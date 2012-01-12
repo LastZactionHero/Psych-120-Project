@@ -2,6 +2,7 @@
 	<tr>
 		<td>User ID</td>
 		<td>Response Type</td>
+		<td>Date/Time</td>
 		<td>Test Week</td>
 		<td>Trial</td>
 		<td>Study Text</td>
@@ -24,6 +25,7 @@
 		<tr class="<%= response.response_type %>">
 		    <td><%= response.study_user.id %></td>
 			<td><%= response.response_type %></td>
+			<td><%= response.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%Y-%m-%d %H:%M") %></td>
 			<td><%= response.test_period %></td>
 			<td><%= response.trial %></td>
 			<td><%= response.question.study_text if response.question %></td>

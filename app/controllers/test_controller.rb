@@ -172,6 +172,12 @@ class TestController < ApplicationController
       @test.init_queue
       @test.trial = @test.trial + 1
       @test.state = :study
+      
+      # End test after 10 trials
+      if @test.trial >= 10
+        @test.complete = true
+        @test.state = :finished
+      end
     end
 
     # Finished recall portion of study/recall test and no unanswered questions remain
