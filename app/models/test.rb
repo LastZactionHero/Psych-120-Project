@@ -92,4 +92,18 @@ class Test < ActiveRecord::Base
     self.unanswered = unanswered_arr.join( "," )
   end
   
+  def clear_all
+    Response.where( :test_id => self.id ).each do |response|
+      response.delete
+    end
+    
+    self.complete = false
+    self.unanswered = nil
+    self.queue = nil
+    self.state = nil
+    self.started_at = nil
+    self.trial = nil
+    self.study_pass = nil    
+  end
+  
 end

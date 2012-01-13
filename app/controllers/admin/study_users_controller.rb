@@ -49,19 +49,8 @@ class Admin::StudyUsersController < Admin::AdminController
 
   def clear_test
     test = Test.find( params[:test] )
-      
-    Response.where( :test_id => test.id ).each do |response|
-      response.delete
-    end
-    
-    test.complete = false
-    test.unanswered = nil
-    test.queue = nil
-    test.state = nil
-    test.started_at = nil
-    test.trial = nil
-    test.study_pass = nil
-    test.save
+    test.clear_all
+    test.save        
       
     redirect_to edit_admin_study_user_path( @user )
   end

@@ -5,9 +5,11 @@ class Admin::ResponsesController < Admin::AdminController
   end
   
   def clear_all
-    Response.all.each do |response|
-      response.delete      
+    Test.all.each do |test|
+      test.clear_all
+      test.save
     end
+           
     redirect_to admin_root_path
   end
   
