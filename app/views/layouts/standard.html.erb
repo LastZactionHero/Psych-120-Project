@@ -19,6 +19,7 @@
 	</div>
 	
 	<div id="header-right">
+		<%= mail_to "pgrimald@purdue.edu", "Questions or Issues" %>
 		<% if @user.present? %><%= link_to "Sign Out", sign_out_test_index_path %><% end %>
 	</div>
 </div>

@@ -15,16 +15,18 @@
 }
 
 #header-right {
+  position: relative;
   float: right;
-  text-align: right;  
+  text-align: right;
+  right: 24px;
 }
 
 #header-right a {
   position: relative;
   top: 12px;
   font-size: 12px;
-  margin: 0px 24px 4px 0px;
-  color: #CCCCCCl  
+  margin: 0px 4px 4px 0px;
+  color: #CCCCCC;
 }
 
 .header-text {
