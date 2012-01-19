@@ -3,7 +3,7 @@ class Test < ActiveRecord::Base
   
   # Get all responses, sorted by created date
   def responses
-    Response.where( :test_id => self.id,  ).order( 'created_at ASC' )
+    Response.where( :test_id => self.id ).order( 'created_at ASC' )
   end
   
   # Generate counterbalance conditions for all tests for a user
