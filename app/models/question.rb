@@ -67,10 +67,9 @@ class Question < ActiveRecord::Base
   
   # Check Spelling
   def self.check_spelling( word )
-    #@@spell_checker = SpellingBee.new :source_text => "./public/wordlist.txt" if @@spell_checker == nil  
-    #corrections = @@spell_checker.correct word    
-    #( corrections.length > 0 and corrections[0] != word ) ? corrections[0] : nil    
-    nil
+    @@spell_checker = SpellingBee.new :source_text => "./public/wordlist.txt" if @@spell_checker == nil  
+    corrections = @@spell_checker.correct word    
+    ( corrections.length > 0 and corrections[0] != word ) ? corrections[0] : nil    
   end
   
 end
