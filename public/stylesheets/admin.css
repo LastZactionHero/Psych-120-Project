@@ -146,3 +146,13 @@ td.completed {
 .counterbalance-exam {
   background-color: #CCCC77;
 }
+
+
+
+
+
+table#visible-users td { 
+  border-left: 1px solid #333333;
+  border-bottom: 1px solid #CCCCCC;
+  font-size: 10px;
+}

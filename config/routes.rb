@@ -38,6 +38,10 @@ Psychtest::Application.routes.draw do
       end
     end
     
+    resources :visible_users, :only => [ :index, :destroy ] do
+      
+    end
+    
     resources :test_meta, :only => [] do
       collection do
         post 'advance_to_next_week'
@@ -54,6 +58,15 @@ Psychtest::Application.routes.draw do
       end
     end
   end
+  
+  resources :visible_users, :only => [ :create ] do
+    collection do
+      
+    end
+  end
+  
+  match 'sign_up' => "visible_users#sign_up"
+  match 'sign_up_complete' => 'visible_users#sign_up_complete'
   
   resources :test, :only => [] do
     collection do

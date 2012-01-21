@@ -30,6 +30,7 @@ gem "metanym"
 gem "fast-stemmer"
 gem "spellingbee"
 gem "rubycas-client"
+gem "dynamic_form"
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

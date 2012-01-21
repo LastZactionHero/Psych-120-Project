@@ -24,6 +24,15 @@ class StudyUser < ActiveRecord::Base
     user = StudyUser.where( :email_hash => email_hash ).first  
   end
   
+  def gender_str
+    self.gender == 0 ? "Male" : "Female"
+  end
+
+  def year_in_school_str
+    conversion = { 0 => "Freshman", 1 => "Sophomore", 2 => "Junior", 3 => "Senior", 4 => "Other" }
+    conversion[self.year_in_school]
+  end
+  
   protected
   
   def init_tests

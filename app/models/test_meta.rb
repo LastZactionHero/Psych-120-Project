@@ -1,5 +1,6 @@
 class TestMeta < ActiveRecord::Base  
-    
+  
+  # Current week
   def self.week
     TestMeta.first.week
   end

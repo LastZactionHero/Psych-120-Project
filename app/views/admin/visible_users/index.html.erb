@@ -1,0 +1,34 @@
+<p>These user records store user information. They are disassociated from test data.</p>
+<p><%= pluralize( VisibleUser.count, "user" ) %> participating in this study</p>
+
+<hr>
+
+<table id="visible-users">
+	<tr>
+		<td>Name</td>
+		<td>Email</td>
+		<td>Tests Complete</td>	
+		
+		<% (0..(TestMeta.max_weeks-1)).each do |week| %>
+			<td>Week <%= week %></td>
+		<% end %>
+		<td>Delete</td>
+	</tr>
+
+	<% VisibleUser.all.each do |user| %>
+		<tr>
+			<td><%= user.first_name %> <%= user.last_name %></td>
+			<td><%= user.email %></td>
+			<td><%= user.tests_completed %></td>
+			
+			<% (0..(TestMeta.max_weeks-1)).each do |week| %>
+				<% test = user.test_for_week( week ) %>
+				<td><%= test ? test.complete : "" %></td>
+			<% end %>
+			
+			<td>
+				<%= link_to "(delete)", admin_visible_user_path( user ), :method => :delete, :class => "modify", :confirm => "Are you sure you would like to delete this user?" %>
+			</td>
+		</tr>
+	<% end %>
+</table>

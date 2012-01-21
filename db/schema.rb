@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120104224122) do
+ActiveRecord::Schema.define(:version => 20120121010822) do
 
   create_table "keywords", :force => true do |t|
     t.string   "original"
@@ -54,6 +54,10 @@ ActiveRecord::Schema.define(:version => 20120104224122) do
     t.string   "email_hash"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "gender"
+    t.integer  "year_in_school"
+    t.string   "first_language"
+    t.integer  "age"
   end
 
   create_table "test_meta", :force => true do |t|
@@ -82,6 +86,18 @@ ActiveRecord::Schema.define(:version => 20120104224122) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "visible_users", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.integer  "gender"
+    t.integer  "year_in_school"
+    t.integer  "age"
+    t.string   "first_language"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

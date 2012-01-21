@@ -1,6 +1,10 @@
 <table id="dump">
 	<tr>
 		<td>User ID</td>
+		<td>Age</td>
+		<td>Year</td>
+		<td>Gender</td>
+		<td>First Language</td>
 		<td>Response Type</td>
 		<td>Date/Time</td>
 		<td>Test Week</td>
@@ -24,6 +28,10 @@
 	<% test.responses.each do |response| %>
 		<tr class="<%= response.response_type %>">
 		    <td><%= response.study_user.id %></td>
+			<td><%= response.study_user.age %></td>
+			<td><%= response.study_user.year_in_school_str %></td>
+			<td><%= response.study_user.gender_str %></td>
+			<td><%= response.study_user.first_language %></td>
 			<td><%= response.response_type %></td>
 			<td><%= response.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%Y-%m-%d %H:%M") %></td>
 			<td><%= response.test_period %></td>

@@ -1,10 +1,20 @@
 require 'fast_stemmer'
 
+# Keyword
+# Keywords are components of Questions
+# Each Keyword reference its parent Question
+# Keywords contain their original word and synonyms
+# 
+# Example:
+# Question Study Text: The deltoid muscle is in awesome."
+# Keywords: "awesome", synonyms: "cool, fantastic, neat" 
 class Keyword < ActiveRecord::Base  
   
   belongs_to :question
   before_save :normalize_synonyms
   
+  # Suggest synonyms for keyword
+  # This is a blocking call to an API
   def suggested_synonyms
     query = Metanym.new self.original
     
@@ -14,15 +24,20 @@ class Keyword < ActiveRecord::Base
     
     suggestions    
   end
-  
+
+  # Set synonyms from string  
   def set_synonyms( synonym_str )
     self.synonyms = synonym_str.split( "," ).map!{ |suggestion| suggestion.downcase.gsub( /[^[:alnum:]]/, " " ).strip }.join( ", " )    
   end
   
+  # Get synonyms as string array
   def synonyms_arr
     self.synonyms.split( "," ).collect{ |s| s.strip }
   end
   
+  # Determine if string matches keyword
+  # Checks original word and synonyms
+  # All words are stemmed before comparison
   def matches_keyword?( compare )
     # Stem the keyword
     compare_stem = Stemmer::stem_word( compare )
@@ -38,6 +53,7 @@ class Keyword < ActiveRecord::Base
   
   protected
   
+  # Strip, downcase, string delimit synonym list
   def normalize_synonyms
     self.synonyms = self.synonyms.split( "," ).map!{ |suggestion| suggestion.downcase.gsub( /[^[:alnum:]]/, " " ).strip }.join( ", " ) if self.synonyms
   end

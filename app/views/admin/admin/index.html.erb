@@ -35,6 +35,16 @@
 
 <br/><br/><br/>
 
+<h1>Visible Users</h1>
+<hr>
+<p>These user records store user information. They are disassociated from test data.</p>
+<p><%= pluralize( VisibleUser.count, "user" ) %> participating in this study</p>
+<p><%= link_to "Edit", admin_visible_users_path %></p>
+
+
+<br/><br/><br/>
+
+
 <h1>Responses</h1>
 <hr>
 <p><%= pluralize( Response.count, "response" ) %> completed</p>
