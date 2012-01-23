@@ -16,7 +16,9 @@ class TestController < ApplicationController
   def sign_in
     
     user = nil        
-        
+   
+    #session[:cas_user] = "testguy"
+           
     # Check if the user has signed in with CAS
     if session[:cas_user].present?
       email = session[:cas_user] + "@purdue.edu"
@@ -90,11 +92,11 @@ class TestController < ApplicationController
       @test.save      
     end
     
+    @condition = @test.get_condition
     @state = @test.get_state
     @question = @test.get_next_question_from_queue
-    
     @correct_response_count = Response.get_correct_response_count_for_question( @question, @user, @test ) if @state == :recall and @question
-    @correct = flash[:correct]    
+    @correct = flash[:correct]     
   end
   
   

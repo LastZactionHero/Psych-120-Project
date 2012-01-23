@@ -1,8 +1,9 @@
-<% if @correct != nil %>
+<% if @correct != nil and @condition != :exam %>
 	<div id="last-question-correct">
 		Last Question: <span class="<%= @correct ? 'correct' : 'incorrect' %>"><%= @correct ? "Correct!" : "Incorrect" %></span>
 	</div>		
 <% end %>
+
 	
 <div id="title">
 	<% if @state == :study %>
