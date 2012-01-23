@@ -1,7 +1,8 @@
 class TestController < ApplicationController
   before_filter :get_user_or_redirect, :only => [:welcome, :step, :complete_step, :finished]
   before_filter :get_test, :only => [:welcome, :step, :complete_step]
-    
+  before_filter CASClient::Frameworks::Rails::Filter, :except => [:home]
+  
   layout 'standard'
   
   # Sign In Page
@@ -13,28 +14,27 @@ class TestController < ApplicationController
   
   # Sign In the User by Email
   def sign_in
-    @error = nil
-    email = params[:login][:email]    
     
-    # Make sure an email address was provided
-    @error = :no_email if email.blank?
-
-    # Find the user
-    user = StudyUser.find_user_by_email( email ) unless @error      
-    @error = :user_not_found if user.blank?
-    session[:user] = user.id if user.present?      
-            
-    # Forward the user
-    if @error.blank?
+    user = nil        
+        
+    # Check if the user has signed in with CAS
+    if session[:cas_user].present?
+      email = session[:cas_user] + "@purdue.edu"
+      user = StudyUser.find_user_by_email( email )                           
+    end
+    
+    # Sign in the user
+    if user
+      session[:user] = user.id
       redirect_to welcome_test_index_path
     else
-      render :home
-    end
+      redirect_to root_path
+    end          
   end
       
   def sign_out
     session[:user] = 0
-    redirect_to welcome_test_index_path
+    CASClient::Frameworks::Rails::Filter.logout(self)
   end
   
   # First page after logging in
@@ -204,7 +204,7 @@ class TestController < ApplicationController
     rescue
       session[:user] = nil
       @user = nil
-      redirect_to root_path
+      redirect_to sign_in_test_index_path
     end
   end
 
@@ -214,7 +214,7 @@ class TestController < ApplicationController
       redirect_to finished_test_index_path
     else
       @test = Test.where( { :study_user_id => @user, :week => week } ).first
-      redirect_to root_path unless @test.present?      
+      #redirect_to root_path unless @test.present?      
     end
  
   end

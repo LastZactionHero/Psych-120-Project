@@ -1,11 +1,11 @@
 <div id="login-box">
-	<p>Sign in with your email address:</p>
-	<%= form_tag( sign_in_test_index_path ) do %>
-		<%= text_field :login, :email %>
-		<%= submit_tag "Sign In" %><br/>
-		<% if @error == :no_email %>You must provide an email address<% end %>
-		<% if @error == :user_not_found %>No user was found with this email address<% end %>		
-	<% end %>
+	<p>Welcome to the Psych120 study</p>
+	
+	<p><%= link_to "Sign In", sign_in_test_index_path %></p><br/>
+	
+	<hr>
+	
+	<p><%= link_to "Register for the study", sign_up_path %></p>	
 	
 	<div id="jswarning">Javascript is not enabled, and is required for this test. Please enable it in your browser.</div>
 </div>

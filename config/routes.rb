@@ -71,7 +71,7 @@ Psychtest::Application.routes.draw do
   resources :test, :only => [] do
     collection do
       get 'home'
-      post 'sign_in'
+      get 'sign_in'
       get 'welcome'
       get 'sign_out'
       get 'finished'
