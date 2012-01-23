@@ -33,6 +33,11 @@ class StudyUser < ActiveRecord::Base
     conversion[self.year_in_school]
   end
   
+  def condition
+    test = Test.where( :study_user_id => self.id, :week => 0 ).first
+    test.get_condition.to_s
+  end
+  
   protected
   
   def init_tests
