@@ -23,9 +23,9 @@
 	<%= form_tag( complete_step_test_index_path, {:onSubmit => 'beforeSubmit()'} ) do %>
 	
 		<% if @state == :study %>
-			<p class="question">Question: <%= @question.question_text %></p>
+			<p class="question"><%= @question.question_text %></p><br/>
 			
-			<br/><p>Answer: <%= highlight_question_keyword_misses( @question.study_text, @keyword_misses ) %></p>
+			<p class="answer">Answer: <%= highlight_question_keyword_misses( @question.study_text, @keyword_misses ) %></p>
 			<%= hidden_field_tag :study_time, "0" %>
 			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
 			
@@ -42,15 +42,16 @@
 			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
 			
 		<% elsif @state == :finished %>
-		  <p>You have completed the study for this week. Thank you!</p>
+		  <h2>You have completed the study for this week.</h2>
+		  <h2>Thank you!</h2> 
 		  <p class="next-link"><%= link_to "Sign Out", sign_out_test_index_path %></p>
 
 		<% elsif @state == :recall_intro %>
-			<p>You will now recall the concepts you just studied.</p>
+			<h2>You will now recall the concepts you just studied.</h2>
 			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
 		
 		<% elsif @state == :study_intro %>
-			<p>You will now study a list of concepts.</p>
+			<h2>You will now study a list of concepts.</h2>
 			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
 			
 		<% end %>

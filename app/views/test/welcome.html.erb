@@ -3,7 +3,8 @@
 	
 	<% if @welcome_state == :already_finished %>
 	  <p>You have already finished this week's test.</p>
-	
+	  <p class="next-link"><%= link_to "Sign Out", sign_out_test_index_path %></p>
+	  
 	<% elsif @welcome_state == :already_started %>
 	  <p>You are in the middle of a test. The test will resume where you left off.</p>
 	  <p class="next-link"><%= link_to "Resume", step_test_index_path %></p>
@@ -12,6 +13,7 @@
 	  
 	  <% if @condition == :none %>
 	  	You have no test scheduled for this week. 
+	  	<p class="next-link"><%= link_to "Sign Out", sign_out_test_index_path %></p>
 	  	
 	  <% elsif @condition == :study %>
 	    <p>This week you will study a list of terms. You may take as much time as you need.</p>

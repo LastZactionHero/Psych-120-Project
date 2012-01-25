@@ -1,14 +1,13 @@
 <div id="login-box">
-	<p>Welcome to the Psych120 study</p>
-	
+	<h2>Welcome to the Psych120 study</h2>
+	<p>Some welcome text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus odio at est gravida non auctor nisi mollis. Donec ornare leo nec nisi pulvinar a fermentum quam lobortis.</p>
+	<hr/>
 	<% if TestMeta.registration_mode %>
 		<p><%= link_to "Register for the study", sign_up_path %></p>
 	<% else %>
-		<p><%= link_to "Sign In", sign_in_test_index_path %></p><br/>
+		<p><%= link_to "Sign In", sign_in_test_index_path %></p>
 	<% end %>
-		
-	
-		
+					
 	
 	<div id="jswarning">Javascript is not enabled, and is required for this test. Please enable it in your browser.</div>
 </div>
