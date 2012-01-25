@@ -18,7 +18,7 @@ class VisibleUser < ActiveRecord::Base
   
   def delete
     study_user = StudyUser.find_user_by_email( self.email )
-    study_user.delete
+    study_user.delete if study_user
     
     super
   end
