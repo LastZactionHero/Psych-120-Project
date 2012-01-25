@@ -36,4 +36,8 @@ class TestMeta < ActiveRecord::Base
     TestMeta.first.highlight_missed_keywords
   end
   
+  def self.registration_mode
+    TestMeta.first.registration_mode
+  end
+  
 end

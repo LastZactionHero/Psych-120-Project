@@ -16,6 +16,13 @@ class VisibleUser < ActiveRecord::Base
   validates :year_in_school, :presence => true
   validates :first_language, :presence => true
   
+  def delete
+    study_user = StudyUser.find_user_by_email( self.email )
+    study_user.delete
+    
+    super
+  end
+    
   def tests_completed
     study_user = find_study_user
     puts "Study User: #{study_user.inspect}"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120125161500) do
+ActiveRecord::Schema.define(:version => 20120125162748) do
 
   create_table "keywords", :force => true do |t|
     t.string   "original"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20120125161500) do
     t.integer  "correct_response_passes"
     t.integer  "study_text_passes"
     t.boolean  "highlight_missed_keywords"
+    t.boolean  "registration_mode"
   end
 
   create_table "tests", :force => true do |t|

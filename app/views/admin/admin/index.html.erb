@@ -11,6 +11,7 @@
 	<p>Passes through study text: <%= text_field_tag :study_text_passes, TestMeta.study_text_passes, :size => 2 %></p>
 	<p>Correct responses for questions: <%= text_field_tag :correct_response_passes, TestMeta.correct_response_passes, :size => 2 %></p>
 	<p>Highlight missed keywords in study text: <%= check_box_tag :highlight_missed_keywords, true, TestMeta.highlight_missed_keywords %></p>
+	<p>Registration Mode: <%= check_box_tag :registration_mode, true, TestMeta.registration_mode %></p>
 	<p><%= submit_tag "Change" %></p> 
 <% end %>
 
