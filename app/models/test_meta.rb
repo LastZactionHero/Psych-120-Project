@@ -32,4 +32,8 @@ class TestMeta < ActiveRecord::Base
     TestMeta.first.correct_response_passes
   end
   
+  def self.highlight_missed_keywords
+    TestMeta.first.highlight_missed_keywords
+  end
+  
 end

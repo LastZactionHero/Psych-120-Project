@@ -14,6 +14,7 @@ class Admin::TestMetaController < Admin::AdminController
     meta = TestMeta.first
     meta.study_text_passes = params[:study_text_passes].to_i
     meta.correct_response_passes = params[:correct_response_passes].to_i
+    meta.highlight_missed_keywords = params[:highlight_missed_keywords].present?
     meta.save
     
     redirect_to admin_root_path
