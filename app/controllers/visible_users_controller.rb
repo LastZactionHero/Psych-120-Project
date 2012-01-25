@@ -4,6 +4,8 @@ class VisibleUsersController < ApplicationController
   
   def sign_up
     @new_user = VisibleUser.new
+        
+    redirect_to root_path unless TestMeta.registration_mode
   end
   
   def create
