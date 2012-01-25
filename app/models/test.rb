@@ -35,7 +35,7 @@ class Test < ActiveRecord::Base
   # Some tests have multiple states, like study/recall.
   # Study, Recall, Finished
   def get_state
-    conversion = { "study" => :study, "recall" => :recall, "finished" => :finished }
+    conversion = { "study" => :study, "study_intro" => :study_intro, "recall" => :recall, "recall_intro" => :recall_intro, "finished" => :finished }      
     conversion[self.state]
   end
   

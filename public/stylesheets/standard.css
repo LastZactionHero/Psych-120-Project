@@ -121,6 +121,11 @@
   font-size: 0.75em;
 }
 
+.study-text-missing-keyword {
+  color: red;
+  font-weight: bold;
+}
+
 h1 {
 
 }

@@ -92,11 +92,22 @@ class TestController < ApplicationController
       @test.save      
     end
     
+    @question_count_total = Question.all.count
+    @question_count_current = @question_count_total - @test.queue_size + 1
     @condition = @test.get_condition
     @state = @test.get_state
     @question = @test.get_next_question_from_queue
     @correct_response_count = Response.get_correct_response_count_for_question( @question, @user, @test ) if @state == :recall and @question
-    @correct = flash[:correct]     
+    @correct = flash[:correct]
+    @correct_ratio = flash[:correct_ratio]
+          
+    if @test.get_state == :study      
+      last_response_for_question = Response.where( :study_user_id => @user.id, :question_id => @question.id, :response_type => "recall" ).order( 'created_at DESC' ).first
+      @keyword_misses = last_response_for_question.present? ? last_response_for_question.keyword_misses.split( "," ) : Array.new
+      @keyword_hits = last_response_for_question.present? ? last_response_for_question.keyword_hits.split( "," ) : Array.new
+      @response = last_response_for_question
+    end
+    
   end
   
   
@@ -142,6 +153,7 @@ class TestController < ApplicationController
       end
       
       flash[:correct] = response.correct
+      flash[:correct_ratio] = response.correct_ratio
       @test.remove_current_question_from_queue
     end
     
@@ -165,6 +177,10 @@ class TestController < ApplicationController
     # Reinitialize in recall state
     if @condition == :study_recall and @state == :study and @test.queue_size == 0
       @test.init_queue
+      @test.state = :recall_intro
+    end
+    
+    if @condition = :study_recall and @state == :recall_intro
       @test.state = :recall
     end
     
@@ -173,7 +189,7 @@ class TestController < ApplicationController
     if @condition == :study_recall and @state == :recall and @test.queue_size == 0 and @test.unanswered_size > 0
       @test.init_queue
       @test.trial = @test.trial + 1
-      @test.state = :study
+      @test.state = :study_intro
       
       # End test after 10 trials
       if @test.trial >= 10
@@ -182,6 +198,10 @@ class TestController < ApplicationController
       end
     end
 
+    if @condition = :study_recall and @state == :study_intro
+      @test.state = :study      
+    end
+    
     # Finished recall portion of study/recall test and no unanswered questions remain
     # Reinitialize in study state
     if ( @condition == :study_recall or @condition == :exam ) and @state == :recall and @test.queue_size == 0 and @test.unanswered_size == 0

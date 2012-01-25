@@ -1,25 +1,31 @@
-<% if @correct != nil and @condition != :exam %>
+<% if @correct_ratio != nil and @condition != :exam %>
 	<div id="last-question-correct">
-		Last Question: <span class="<%= @correct ? 'correct' : 'incorrect' %>"><%= @correct ? "Correct!" : "Incorrect" %></span>
+		Last Question: 
+		<span class="<%= @correct ? 'correct' : 'incorrect' %>">
+			<%= @correct ? "Correct!" : @correct_ratio > 0.25 ? "Partially Correct" : "Incorrect" %>
+		</span>
 	</div>		
 <% end %>
 
-	
+
 <div id="title">
 	<% if @state == :study %>
 		Study this concept:
 	<% elsif @state == :recall %>
-		Try to recall this concept:
+		&nbsp;		
+	<% else %>
+		&nbsp;
 	<% end %>
 </div>	
 
-<div id="step-box">	
-		
+<div id="step-box">			
+	
 	<%= form_tag( complete_step_test_index_path, {:onSubmit => 'beforeSubmit()'} ) do %>
 	
-		<% if @state == :study %>			
-			<p class="question"><%= @question.question_text %></p>
-			<p><%= @question.study_text %></p>
+		<% if @state == :study %>
+			<p class="question">Question: <%= @question.question_text %></p>
+			
+			<br/><p>Answer: <%= highlight_question_keyword_misses( @question.study_text, @keyword_misses ) %></p>
 			<%= hidden_field_tag :study_time, "0" %>
 			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
 			
@@ -31,7 +37,7 @@
 			<%= hidden_field_tag :keystroke_count, "0" %>
 			
 			<% if @condition != :exam %>
-				<p class="correct-responses">You have correctly answered this question <%= pluralize( @correct_response_count, "time" ) %> this week.</p>
+				<p class="correct-responses">Question <%= @question_count_current %> of <%= @question_count_total %>. You have correctly answered this question <%= pluralize( @correct_response_count, "time" ) %> this week.</p>
 			<% end %>
 			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
 			
@@ -39,6 +45,14 @@
 		  <p>You have completed the study for this week. Thank you!</p>
 		  <p class="next-link"><%= link_to "Sign Out", sign_out_test_index_path %></p>
 
+		<% elsif @state == :recall_intro %>
+			<p>You will now recall the concepts you just studied.</p>
+			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
+		
+		<% elsif @state == :study_intro %>
+			<p>You will now study a list of concepts.</p>
+			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
+			
 		<% end %>
 		
 	<% end %>
