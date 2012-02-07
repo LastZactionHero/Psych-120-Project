@@ -10,7 +10,7 @@
 
 <div id="title">
 	<% if @state == :study %>
-		Study this concept:
+		&nbsp;	
 	<% elsif @state == :recall %>
 		&nbsp;		
 	<% else %>
@@ -25,7 +25,7 @@
 		<% if @state == :study %>
 			<p class="question"><%= @question.question_text %></p><br/>
 			
-			<p class="answer">Answer: <%= highlight_question_keyword_misses( @question.study_text, @keyword_misses ) %></p>
+			<p class="answer"><%= highlight_question_keyword_misses( @question.study_text, @keyword_misses ) %></p>
 			<%= hidden_field_tag :study_time, "0" %>
 			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
 			
@@ -37,21 +37,21 @@
 			<%= hidden_field_tag :keystroke_count, "0" %>
 			
 			<% if @condition != :exam %>
-				<p class="correct-responses">Question <%= @question_count_current %> of <%= @question_count_total %>. You have correctly answered this question <%= pluralize( @correct_response_count, "time" ) %> this week.</p>
+				<p class="correct-responses">Question <%= @question_count_current %> of <%= @question_count_total %>. You have correctly answered this question <%= pluralize( @correct_response_count, "time" ) %>.</p>
 			<% end %>
 			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
 			
 		<% elsif @state == :finished %>
-		  <h2>You have completed the study for this week.</h2>
+		  <h2>You have completed this session.</h2>
 		  <h2>Thank you!</h2> 
 		  <p class="next-link"><%= link_to "Sign Out", sign_out_test_index_path %></p>
 
 		<% elsif @state == :recall_intro %>
-			<h2>You will now recall the concepts you just studied.</h2>
+			<h2>Begin recall period</h2>
 			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
 		
 		<% elsif @state == :study_intro %>
-			<h2>You will now study a list of concepts.</h2>
+			<h2>Begin study period</h2>
 			<p class="next-link"><%= submit_tag "Next", :id => "next-button" %></p>
 			
 		<% end %>

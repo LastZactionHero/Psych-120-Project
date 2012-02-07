@@ -1,12 +1,12 @@
 <div id="step-box">
-	<h2>Week <%= TestMeta.week + 1 %></h2>
+	<h2>Session  <%= TestMeta.week + 1 %></h2>
 	
 	<% if @welcome_state == :already_finished %>
-	  <p>You have already finished this week's test.</p>
+	  <p>You have already finished this part of the experiment.</p>
 	  <p class="next-link"><%= link_to "Sign Out", sign_out_test_index_path %></p>
 	  
 	<% elsif @welcome_state == :already_started %>
-	  <p>You are in the middle of a test. The test will resume where you left off.</p>
+	  <p>You are in the middle of a session. The session will resume where you left off.</p>
 	  <p class="next-link"><%= link_to "Resume", step_test_index_path %></p>
 	  
 	<% elsif @welcome_state == :new_test %>
@@ -16,15 +16,28 @@
 	  	<p class="next-link"><%= link_to "Sign Out", sign_out_test_index_path %></p>
 	  	
 	  <% elsif @condition == :study %>
-	    <p>This week you will study a list of terms. You may take as much time as you need.</p>
-	    <p class="next-link"><%= link_to "Start", step_test_index_path %></p>
+	
+	    <p> In this part of the experiment, you will learn a set of 10 psychology concepts. Next week you will be tested on your memory for these concepts.</p><br> 
+		<p> The concepts will appear on the screen one-at-a-time for study. Study each concept while it is on the screen. When you are finished 	studying, click the "next" link to move on. You may take as much time as you need. <b>The session will end when each concept has been 		studied 6 times.</b> </p><br>
+		<p> Before you begin, make sure that you are in a quiet environment free of distraction. Also make sure that you can work for up to 1 hour 	without interruption. When you are ready to begin, click the "Start" link below. </p><br>
+		<p class="next-link"><%= link_to "Start", step_test_index_path %></p><br>
 	    
 	  <% elsif @condition == :study_recall %>  	
-	    <p>This week you will study a list of terms and be tested over their definitions.</p>
-	    <p class="next-link"><%= link_to "Start", step_test_index_path %></p>
+	    <p> In this part of the experiment, you will learn a set of 10 psychology concepts. Next week you will be tested on your memory for these concepts.</p> <br>
+		<p> The concepts will appear on the screen one-at-a-time for study. Study each concept while it is on the screen. When you are finished 	studying, click the "next" link to move on. You may take as much time as you need. </p><br>
+		<p> Next, you will be tested on your memory for the concepts. Questions will appear on the screen one-at-a-time. Do your best to answer 	each question by typing your response into the text box. After you have typed your response, click the "Next" link to move on. </p><br>
+		<p> You will continue to study and recall each concept throughout the session. The session will end when each concept has been recalled 3 	times. <b>Note that session will automatically terminate after the 6th recall opportunity, so the session will not last forever if you 	are having trouble with some of the concepts.</b></p> <br>
+		<p> We ask that when you are trying to recall the concepts, you do so without the help of notes or other mnemonic aids. The task is 		difficult, and it may take you multiple tries before you correctly recall a concept. </p> 	<br>				
+		<p> Before you begin, make sure that you are in a quiet environment free of distraction. Also make sure that you can work for up to 1 hour 	without interruption. When you are ready to begin, click the "Start" link below. </p><br>
+	    <p class="next-link"><%= link_to "Start", step_test_index_path %></p><br>
 	   
 	  <% elsif @condition == :exam %>
-	  	<p>This week you will be tested over a list of terms.</p>
+	  	<p>This week you will be tested over the concepts that you learned last week. Questions will appear on the screen one-at-a-time. Do your 		best to answer 	each question by typing your response into the text box. After you have typed your response, click the "Next" link to 		move on. Note that you cannot go back the a question after the response has been submitted.</p><br>
+		
+		<p> The session will end after the last question has been answered. When you are finished, please see the experimenter for your payment. 	</p><br>
+	
+		<p>When you are ready to begin, click the "Start" link below. </p>
+		
 	  	<p class="next-link"><%= link_to "Start", step_test_index_path %></p>
 	  <% end %>
 	        
