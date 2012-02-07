@@ -30,7 +30,15 @@ class VisibleUser < ActiveRecord::Base
 
   def tests_started
     study_user = find_study_user    
-    study_user ? Test.where( "study_user_id IS #{study_user.id} AND started_at IS NOT NULL" ).count : 0    
+
+    started_count = 0
+    if study_user
+      Test.where( :study_user_id => study_user.id ).each do |test|
+        started_count = started_count + 1 if test.started_at
+      end
+    end
+
+    started_count
   end
   
   def test_for_week( week )
