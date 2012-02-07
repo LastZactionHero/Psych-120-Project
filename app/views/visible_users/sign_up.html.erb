@@ -4,19 +4,23 @@
 		<p>Note: You must register with a purdue.edu address!</p>
 	<hr/>
 	
-	<%= form_for( @new_user ) do |f| %>
-		<%= f.error_messages %>
-		<ul>
-			<li><%= f.label :first_name %><%= f.text_field :first_name %></li>
-			<li><%= f.label :last_name %><%= f.text_field :last_name %></li>
-			<li><%= f.label :email %><%= f.text_field :email %></li>
-			<li><%= f.label :gender %><%= select( :visible_user, :gender, [['Male', 0], ['Female', 1]]) %></li>						
-			<li><%= f.label :age %><%= f.text_field :age, :size => 2, :maxlength => 2 %></li>
-			<li><%= f.label :year_in_school %><%= select( :visible_user, :year_in_school, [['Freshman', 0], ['Sophomore', 1], ['Junior', 2], ['Senior', 3], ['Other', 4]]) %></li>
-			<li><%= f.label :first_language %><%= radio_button_tag( "visible_user[first_language]", "English", :checked => "checked" ) %><label class='first-language'>English</label></li>
-			<li><%= f.label raw("&nbsp;") %>Other <%= text_field :visible_user, :first_language %></li>
-			<li><%= f.submit "Register" %></li>			
-		</ul>	
+	<% if VisibleUser.registration_closed? %>
+		<p>Registration is closed for this study</p>
+	<% else %>
+		<%= form_for( @new_user ) do |f| %>
+			<%= f.error_messages %>
+			<ul>
+				<li><%= f.label :first_name %><%= f.text_field :first_name %></li>
+				<li><%= f.label :last_name %><%= f.text_field :last_name %></li>
+				<li><%= f.label :email %><%= f.text_field :email %></li>
+				<li><%= f.label :gender %><%= select( :visible_user, :gender, [['Male', 0], ['Female', 1]]) %></li>						
+				<li><%= f.label :age %><%= f.text_field :age, :size => 2, :maxlength => 2 %></li>
+				<li><%= f.label :year_in_school %><%= select( :visible_user, :year_in_school, [['Freshman', 0], ['Sophomore', 1], ['Junior', 2], ['Senior', 3], ['Other', 4]]) %></li>
+				<li><%= f.label :first_language %><%= radio_button_tag( "visible_user[first_language]", "English", :checked => "checked" ) %><label class='first-language'>English</label></li>
+				<li><%= f.label raw("&nbsp;") %>Other <%= text_field :visible_user, :first_language %></li>
+				<li><%= f.submit "Register" %></li>			
+			</ul>	
+		<% end %>
 	<% end %>
 </div>
 

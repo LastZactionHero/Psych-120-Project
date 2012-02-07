@@ -1,49 +1,59 @@
 <div id="login-box">
 	<% if TestMeta.registration_mode %>
 	
-	<h2>Welcome to the Psych120 study</h2>
-		<p>This study is only available to students enrolled in Psych 120 with Dr. Eric Wesselman (Section 3). If you would like to participate, please read the information below</p>
-	<hr/>	
-	<h2><div align="center">Research Participant Consent Form</div></h2>	
-	<h3>Purpose of Research</h3> 
-		<p>The overall purpose of this research is to investigate the effects of different study techniques on learning. </p>
-
-	<h3>Specific Procedures</h3> 
-		<p>Your participation will involve studying a set of material and taking memory tests. </p> 
-
-	<h3>Duration of Participation and Compensation</h3> 
-		<p>This is a two-session experiment. The first session will be completed online, and the total duration of which may vary from 30 to 60 min. The second session will be completed in the lab one week after the first session, and will last 30 minutes. You will be paid $15 for your participation at the end of session 2.</p>
-
-	<h3>Risks to the Individual</h3>
-		<p>Minimal: The risks are not greater than those ordinarily encountered in daily life. There is a risk of breach of confidentiality. However every safeguard will be used to minimize this risk as described in the confidentiality section. </p>
-
-	<h3>Benefits</h3>
-		<p>There are no direct benefits to participants. You will have the opportunity to learn about experimental psychology tasks and the specific phenomenon under study.  </p>
-
-	<h3>Confidentiality</h3>
-		<p>Any data collected during this experiment will not be associated with any of your personal information like your name or ID number. Your data will be retained indefinitely in locked file cabinets accessible only to members of the research team. The project’s research records may be reviewed by National Science Foundation and by the departments at Purdue University responsible for regulatory and research oversight.  </p>
-
-	<h3>Voluntary Nature of Participation</h3>
-		<p>You do not have to participate in this research project.  If you agree to participate you can withdraw your participation at any time without penalty. To withdraw your participation you only need to communicate it to the experimenter. You will receive payment even if you choose to withdraw your participation. </p>
-
-	<h3>Contact Information</h3>
-		<p>If you have any questions about this research project, you can contact Dr. Karpicke (Phone: 494-0273, Email: karpicke@purdue.edu). If you have concerns about the treatment of research participants, you can contact the Institutional Review Board at Purdue University, Ernest C. Young Hall, Room 1032, 155 S. Grant St., West Lafayette, IN 47907-2114. The phone number for the Board is (765) 494-5942.  The email address is irb@purdue.edu. </p>
-
-	<h3>Documentation of Informed Consent</h3>
-		<p>I have had the opportunity to read this consent form and have the research study explained. I have had the opportunity to ask questions about the research project and my questions have been answered. I am prepared to participate in the research project described above. I will receive a copy of this consent form after I sign it.  </p>
-	<hr/>
-	<h2> Registration</h2>
-		<p> If you would like to participate, you may register using the link below. <b>By registering, you agree to the information presented in the consent form. Please print this page for your records.</b> Note:Registration is only open from Tuesday Feb. 7 to Friday Feb. 10 </p>
-	
-	
-		<p><%= link_to "Register for the study", sign_up_path %></p>
+		<h2>Welcome to the Psych120 study</h2>
+		
+		<% if VisibleUser.registration_closed? %>
+		
+			<p>Registration has closed for this study.</p>
+			
+		<% else %>
+			<p>This study is only available to students enrolled in Psych 120 with Dr. Eric Wesselman (Section 3). If you would like to participate, please read the information below</p>
+			<hr/>	
+			<h2><div align="center">Research Participant Consent Form</div></h2>	
+			<h3>Purpose of Research</h3> 
+				<p>The overall purpose of this research is to investigate the effects of different study techniques on learning. </p>
+		
+			<h3>Specific Procedures</h3> 
+				<p>Your participation will involve studying a set of material and taking memory tests. </p> 
+		
+			<h3>Duration of Participation and Compensation</h3> 
+				<p>This is a two-session experiment. The first session will be completed online, and the total duration of which may vary from 30 to 60 min. The second session will be completed in the lab one week after the first session, and will last 30 minutes. You will be paid $15 for your participation at the end of session 2.</p>
+		
+			<h3>Risks to the Individual</h3>
+				<p>Minimal: The risks are not greater than those ordinarily encountered in daily life. There is a risk of breach of confidentiality. However every safeguard will be used to minimize this risk as described in the confidentiality section. </p>
+		
+			<h3>Benefits</h3>
+				<p>There are no direct benefits to participants. You will have the opportunity to learn about experimental psychology tasks and the specific phenomenon under study.  </p>
+		
+			<h3>Confidentiality</h3>
+				<p>Any data collected during this experiment will not be associated with any of your personal information like your name or ID number. Your data will be retained indefinitely in locked file cabinets accessible only to members of the research team. The project’s research records may be reviewed by National Science Foundation and by the departments at Purdue University responsible for regulatory and research oversight.  </p>
+		
+			<h3>Voluntary Nature of Participation</h3>
+				<p>You do not have to participate in this research project.  If you agree to participate you can withdraw your participation at any time without penalty. To withdraw your participation you only need to communicate it to the experimenter. You will receive payment even if you choose to withdraw your participation. </p>
+		
+			<h3>Contact Information</h3>
+				<p>If you have any questions about this research project, you can contact Dr. Karpicke (Phone: 494-0273, Email: karpicke@purdue.edu). If you have concerns about the treatment of research participants, you can contact the Institutional Review Board at Purdue University, Ernest C. Young Hall, Room 1032, 155 S. Grant St., West Lafayette, IN 47907-2114. The phone number for the Board is (765) 494-5942.  The email address is irb@purdue.edu. </p>
+		
+			<h3>Documentation of Informed Consent</h3>
+				<p>I have had the opportunity to read this consent form and have the research study explained. I have had the opportunity to ask questions about the research project and my questions have been answered. I am prepared to participate in the research project described above. I will receive a copy of this consent form after I sign it.  </p>
+			<hr/>
+		
+			<h2> Registration</h2>
+			
+			<p> If you would like to participate, you may register using the link below. <b>By registering, you agree to the information presented in the consent form. Please print this page for your records.</b> Note:Registration is only open from Tuesday Feb. 7 to Friday Feb. 10 </p>
+					
+			<p><%= link_to "Register for the study", sign_up_path %></p>
+			
+		<% end %>	
 	<% else %>
 	
-	<h2>Welcome to the Psych120 study</h2>
-		<p>Registration for this study has ended. Please click on the link below to sign in.</p>
-	
+		<h2>Welcome to the Psych120 study</h2>
+		
+		<p>Registration for this study has ended. Please click on the link below to sign in.</p>	
 	
 		<p><%= link_to "Sign In", sign_in_test_index_path %></p>
+		
 	<% end %>
 					
 	

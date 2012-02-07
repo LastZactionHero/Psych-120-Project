@@ -34,6 +34,10 @@ class VisibleUser < ActiveRecord::Base
     study_user = find_study_user
     study_user ? Test.where( :study_user_id => study_user.id, :week => week ).first : nil
   end
+
+  def self.registration_closed?
+    VisibleUser.count >= 100
+  end  
     
   private
   

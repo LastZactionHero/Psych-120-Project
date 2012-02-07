@@ -191,8 +191,8 @@ class TestController < ApplicationController
       @test.trial = @test.trial + 1
       @test.state = :study_intro
       
-      # End test after 10 trials
-      if @test.trial >= 10
+      # End test after 6 trials
+      if @test.trial >= 6
         @test.complete = true
         @test.state = :finished
       end
