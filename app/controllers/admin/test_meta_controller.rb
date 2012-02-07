@@ -21,6 +21,14 @@ class Admin::TestMetaController < Admin::AdminController
     redirect_to admin_root_path
   end
   
+  def update_test_days
+    meta = TestMeta.first
+    meta.test_days = [ params[:monday].present?, params[:tuesday].present?, params[:wednesday].present?, params[:thursday].present?, params[:friday].present?, params[:saturday].present?, params[:sunday].present?].join( ", " )
+    meta.save
+    
+    redirect_to admin_root_path
+  end
+  
 #  DEPRECIATED
 #
 #  def update_week_count

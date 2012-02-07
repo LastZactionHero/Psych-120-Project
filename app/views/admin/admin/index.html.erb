@@ -17,6 +17,23 @@
 
 <br/><br/><br/>
 
+<h1>Test Days (not yet implemented)</h1>
+<hr>
+<%= form_tag( update_test_days_admin_test_meta_path ) do %>
+	<%= check_box_tag :monday, true, TestMeta.test_enabled_on_day( :monday ) %><%= label_tag :monday, "Monday" %>
+	<%= check_box_tag :tuesday, true, TestMeta.test_enabled_on_day( :tuesday ) %><%= label_tag :tuesday, "Tuesday" %>
+	<%= check_box_tag :wednesday, true, TestMeta.test_enabled_on_day( :wednesday ) %><%= label_tag :wednesday, "Wednesday" %>
+	<%= check_box_tag :thursday, true, TestMeta.test_enabled_on_day( :thursday ) %><%= label_tag :thursday, "Thursday" %>
+	<%= check_box_tag :friday, true, TestMeta.test_enabled_on_day( :friday ) %><%= label_tag :friday, "Friday" %>
+	<%= check_box_tag :saturday, true, TestMeta.test_enabled_on_day( :saturday ) %><%= label_tag :saturday, "Saturday" %>
+	<%= check_box_tag :sunday, true, TestMeta.test_enabled_on_day( :sunday ) %><%= label_tag :sunday, "Sunday" %>
+	<p><%= submit_tag "Change" %></p>	
+<% end %>
+Current Time: <%= Time.now %>
+<br/><br/><br/>
+
+
+
 <h1>Test Questions</h1>
 <hr>
 <p><%= pluralize( @active_question_count, "active question" ) %></p>

@@ -40,4 +40,11 @@ class TestMeta < ActiveRecord::Base
     TestMeta.first.registration_mode
   end
   
+  def self.test_enabled_on_day( day )
+    days_arr = TestMeta.first.test_days.split( "," ).map{ |day| day.strip }
+    conversion = { :monday => 0, :tuesday => 1, :wednesday => 2, :thursday => 3, :friday => 4, :saturday => 5, :sunday => 6 }
+        
+    days_arr[ conversion[day] ] == "true"
+  end
+  
 end

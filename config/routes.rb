@@ -48,6 +48,7 @@ Psychtest::Application.routes.draw do
         post 'revert_to_last_week'
         post 'update_week_count'
         post 'update_passes'
+        post 'update_test_days'
       end
     end
     
