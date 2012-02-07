@@ -30,6 +30,7 @@ class TestController < ApplicationController
       session[:user] = user.id
       redirect_to welcome_test_index_path
     else
+      flash[:user_does_not_exist] = true
       redirect_to root_path
     end          
   end

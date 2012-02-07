@@ -52,10 +52,13 @@
 		
 		<p>Registration for this study has ended. Please click on the link below to sign in.</p>	
 	
+		<% if flash[:user_does_not_exist] %>
+			<p class="error">You are not registered for this study.</p>
+		<% end %>
+		
 		<p><%= link_to "Sign In", sign_in_test_index_path %></p>
 		
-	<% end %>
-					
+	<% end %>					
 	
 	<div id="jswarning">Javascript is not enabled, and is required for this test. Please enable it in your browser.</div>
 </div>
