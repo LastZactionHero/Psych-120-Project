@@ -25,11 +25,14 @@ class VisibleUser < ActiveRecord::Base
     
   def tests_completed
     study_user = find_study_user
-    puts "Study User: #{study_user.inspect}"
-    
     study_user ? Test.where( :study_user_id => study_user.id, :complete => true ).count : 0 
   end
 
+  def tests_started
+    study_user = find_study_user    
+    study_user ? Test.where( "study_user_id IS #{study_user.id} AND started_at IS NOT NULL" ).count : 0    
+  end
+  
   def test_for_week( week )
     study_user = find_study_user
     study_user ? Test.where( :study_user_id => study_user.id, :week => week ).first : nil

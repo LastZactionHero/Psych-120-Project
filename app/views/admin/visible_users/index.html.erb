@@ -10,8 +10,15 @@
 		<td>Tests Complete</td>	
 		
 		<% (0..(TestMeta.max_weeks-1)).each do |week| %>
-			<td>Week <%= week %></td>
+			<td>Week <%= week %> Completed</td>
 		<% end %>
+		
+		<td>Tests Started</td>	
+		
+		<% (0..(TestMeta.max_weeks-1)).each do |week| %>
+			<td>Week <%= week %> Started</td>
+		<% end %>
+				
 		<td>Delete</td>
 	</tr>
 
@@ -25,7 +32,14 @@
 				<% test = user.test_for_week( week ) %>
 				<td><%= test ? test.complete : "" %></td>
 			<% end %>
+
+			<td><%= user.tests_started %></td>
 			
+			<% (0..(TestMeta.max_weeks-1)).each do |week| %>
+				<% test = user.test_for_week( week ) %>
+				<td><%= test ? test.started_at : "" %></td>
+			<% end %>
+						
 			<td>
 				<%= link_to "(delete)", admin_visible_user_path( user ), :method => :delete, :class => "modify", :confirm => "Are you sure you would like to delete this user?" %>
 			</td>
