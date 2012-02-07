@@ -7,6 +7,8 @@ class TestController < ApplicationController
   
   # Sign In Page
   def home
+    @sign_in_enabled_today = TestMeta.test_enabled_today?
+     
     if session[:user].present?
       redirect_to welcome_test_index_path
     end
@@ -26,11 +28,12 @@ class TestController < ApplicationController
     end
     
     # Sign in the user
-    if user
+    testing_enabled_today = TestMeta.test_enabled_today?
+    if user and testing_enabled_today
       session[:user] = user.id
       redirect_to welcome_test_index_path
     else
-      flash[:user_does_not_exist] = true
+      flash[:user_does_not_exist] = true unless user
       redirect_to root_path
     end          
   end

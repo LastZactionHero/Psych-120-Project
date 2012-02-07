@@ -56,7 +56,11 @@
 			<p class="error">You are not registered for this study.</p>
 		<% end %>
 		
-		<p><%= link_to "Sign In", sign_in_test_index_path %></p>
+		<% if @sign_in_enabled_today %>
+			<p><%= link_to "Sign In", sign_in_test_index_path %></p>
+		<% else %>
+			<p>Testing is closed for this week.</p>
+		<% end %>
 		
 	<% end %>					
 	

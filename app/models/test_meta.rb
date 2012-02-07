@@ -47,4 +47,9 @@ class TestMeta < ActiveRecord::Base
     days_arr[ conversion[day] ] == "true"
   end
   
+  def self.test_enabled_today?
+    days_arr = TestMeta.first.test_days.split( "," ).map{ |day| day.strip }
+    days_arr[Time.now.wday - 1] == "true"
+  end
+  
 end
